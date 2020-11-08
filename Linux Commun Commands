@@ -48,6 +48,11 @@ grep -C  4 .- show also 4 lines BEFORE and AFTER match
 
 ----------sort-------------
 
+----------CUT-------------
+cut -d# -f 1- --complement dhcp/dhclient.conf
+-d .- delimiter character (Starts with #)
+-f .- range
+--complement .- the opposite
 -----------tar------------
 c – Creates a new .tar archive file.
 v – Verbosely show the .tar file progress.
