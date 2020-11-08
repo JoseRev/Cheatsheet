@@ -1,0 +1,99 @@
+-----------Linux Distro-----------
+cat /etc/*release
+cat /proc/version
+lsb_release -a 
+cat /etc/issue* 
+  
+-------CAMBIO PASSWORD------------CENTOS/ISSABEL-------
+passwd  root  .-Cambio SSH Issabel Password
+/usr/bin/sqlite3 /var/www/db/acl.db "UPDATE acl_user SET md5_password = '`echo -n newpassword|md5sum|cut -d ' ' -f 1`' WHERE name = 'admin'"  .-Cambio GUI Issabel Password 
+
+------------CRON----------------
+crontab -e	 (KEYWORD time in the vim file, echos duration of excecution)
+at
+
+-----------FIND-----------------
+find . .- returns all files and folders of this directory and below..
+find . -type f -name "*.php"
+find . -type d .- returns all direcotries
+find . -type f -iname "test*" .- returns files that start with test (case insentive)
+find . -mmin -20 .- returns files modified less than 20 minutes ago (+20 also available)
+find . -mtime -30 -mtime +10.- returns files modified less 30-10 DAYS ago (atime, ctime, amin, cmin available)
+find /var/www/ -size +5M
+find /var/www/ -name "*.jpg" -maxdepth 1 -exec rm {}+ .- removes files that match the first part of the criteria
+---------FILE SIZE--------
+find /var/www/backup/ -size +5M (can be k, M, G for sizes)
+du -sh /var/www/backup/
+ls -alh /var/www/backup/
+df -h .- Disk Free (Human readable format)
+**The du command shows how much disk space is used for the given file. In contrast, the ls command shows the size of the file. The space used can be larger than the file size, depending on the filesystem used. So the used disk space was in this example 4 kilobytes, although the filesize is only one byte.
+
+---------SCP--------------
+RECIBIR EN WINDOWS (ingresado desde pc rx en windows)
+C:\Users\gabri> pscp -P 2122 root@192.168.1.80:/pcap/t4.pcap C:\Users\gabri\Downloads\t4.pcap
+Utilizado para pasar el archivo t4.pcap de PC Ubuntu (docker issabel) a la PC Windows
+
+scp root@192.168.0.31:/etc/asterisk/sip_additional.conf C:\Users\SEDENA\Desktop\sip_additional2.txt
+---------GREP-------------
+grep "John Williams" names.txt
+grep -i .- not case sensitive
+grep -n .- show also line number
+grep -v .- results NOT matching the criteria
+grep -l .- shows the name of the file containing the string
+grep -B 4 .- show also 4 lines BEFORE match
+grep -A 4 .- show also 4 lines AFTER match
+grep -C  4 .- show also 4 lines BEFORE and AFTER match
+
+*Searches text in files
+
+----------sort-------------
+
+-----------tar------------
+c – Creates a new .tar archive file.
+v – Verbosely show the .tar file progress.
+f – File name type of the archive file.
+z - compressed gzip
+j - bz2 feature compress and create archive file less than the size of the gzip
+x - extract (untar)
+t - list files inside tar
+#tar -cvf tecmint-14-09-12.tar /home/tecmint/
+#tar -cvzf MyImages-14-09-12.tar.gz /home/MyImages  OR  #tar -cvzf MyImages-14-09-12.tgz /home/MyImages
+#tar -cvfj Phpfiles-org.tar.bz2 /home/php           OR  #tar -cvfj Phpfiles-org.tar.tbz /home/php         OR   #tar -cvfj Phpfiles-org.tar.tb2 /home/php
+#tar -cvfj MyImages-14-09-12.tgz /home/MyImages     OR  #tar -cvfj Phpfiles-org.tar.tbz /home/php
+#tar -xvf videos-14-09-12.tar.bz2 -C /backup/ 	   .-(-xvf untars formats: .bz2, .gz, .tar)
+#tar -tvf uploadprogress.tar  					   .-(List Content of tar internal Files)
+
+-------------COMMUN-------------------
+pwd .- current directory
+uname -a  .- Linux version/distribution
+
+----------SED--------------
+sed '1,2s/hola/usuario' p1
+sed -n "26,28p" p3 
+
+archivo : ejemplo
+hola1	hola2 	hola3
+hola1	hola2 	hola3
+hola1	hola2 	hola3
+hola1	hola2 	hola3
+
+sed ‘s/hola/usuario/’ ejemplo .- sustituye hola por usuario (el nombre del archivo es ejemplo)
+usuario1	hola2 	hola3
+usuario1	hola2 	hola3
+usuario1	hola2 	hola3
+usuario1	hola2 	hola3
+
+sed ‘s/hola/usuario/g’ ejemplo .- sustituye hola por usuario
+usuario1	usuario2 	usuario3
+usuario1	usuario2 	usuario3
+usuario1	usuario2 	usuario3
+usuario1	usuario2 	usuario3
+
+sed ‘1,2s/hola/usuario’ ejemplo .- sustituye hola por usuario
+usuario1	hola2 	hola3
+usuario1	hola2 	hola3
+hola1	hola2 	hola3
+hola1	hola2 	hola3
+
+
+
