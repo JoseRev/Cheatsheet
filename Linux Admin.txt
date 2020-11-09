@@ -1,0 +1,7 @@
+##### CENTOS ADMIN TIPS #####
+
+s -alh -l .-long list, -a .-all (including hidden), h.- human readable format
+
+
+
+

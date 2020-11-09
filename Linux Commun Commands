@@ -1,3 +1,9 @@
+-------------COMMUN-------------------
+pwd .- current directory
+uname -a  .- Linux version/distribution
+uptime
+cal 2020
+
 -----------Linux Distro-----------
 cat /etc/*release
 cat /proc/version
@@ -13,6 +19,7 @@ crontab -e	 (KEYWORD time in the vim file, echos duration of excecution)
 at
 
 -----------FIND-----------------
+find /proc/ -iname "swap*" .- returns file's path of the matching names
 find . .- returns all files and folders of this directory and below..
 find . -type f -name "*.php"
 find . -type d .- returns all direcotries
@@ -47,9 +54,10 @@ grep -C  4 .- show also 4 lines BEFORE and AFTER match
 *Searches text in files
 
 ----------sort-------------
+sort -bf [option] [File] .- b stands for :ignore-leading-blanks, f stands for ignore-case
 
 ----------CUT-------------
-cut -d# -f 1- --complement dhcp/dhclient.conf
+cut -d# -f 1- --complement dhclient.conf.- Devides the file into columns, by the delimiter, and outputs the number especified by '-f'
 -d .- delimiter character (Starts with #)
 -f .- range
 --complement .- the opposite
@@ -68,9 +76,6 @@ t - list files inside tar
 #tar -xvf videos-14-09-12.tar.bz2 -C /backup/ 	   .-(-xvf untars formats: .bz2, .gz, .tar)
 #tar -tvf uploadprogress.tar  					   .-(List Content of tar internal Files)
 
--------------COMMUN-------------------
-pwd .- current directory
-uname -a  .- Linux version/distribution
 
 ----------SED--------------
 sed '1,2s/hola/usuario' p1

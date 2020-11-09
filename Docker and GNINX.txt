@@ -1,0 +1,60 @@
+************Issabel  volume & localhost***********************
+docker run -p 801:4443 \
+-v issabel-etc:/etc -v issabel-www:/var/www \
+-v issabel-log:/var/log -v issabel-lib:/var/lib \
+-v issabel-home:/home -v /etc/resolv.conf:/etc/resolv.conf:ro \
+--cap-add=NET_ADMIN  --restart=always -d technoexpress/issabel-pbx
+
+
+************Issabel & ipvlan driver***********************
+docker run --ip=192.168.1.90 \
+-v issabel-etc:/etc -v issabel-www:/var/www \
+-v issabel-log:/var/log -v issabel-lib:/var/lib \
+-v issabel-home:/home -v /etc/resolv.conf:/etc/resolv.conf:ro \
+--cap-add=NET_ADMIN --network casa --restart=always -d technoexpress/issabel-pbx
+
+
+************** IPVLAN DRIVER *******************
+docker network create -d ipvlan \
+    --subnet=192.168.1.0/24 \
+    --gateway=192.168.1.254 \
+    -o parent=wlo1\	
+    -o ipvlan_mode=l2 casa
+	
+
+**********NGINX L4**********
+#nano nginx/nginx.conf
+
+stream {
+	upstream allbackend {
+		server 127.0.0.1:801;
+		server 127.0.0.1:802;
+	}
+	server {
+		listen 80;
+		proxy_pass allbackend;
+	}
+}
+
+events{}
+
+*********NGINX DOCKER FILE**********
+#nano dockerfile
+
+FROM nginx
+COPY nginx.conf /etc/nginx/nginx.conf
+
+*************BUILD CONTAINER****************
+docker build -t nginxapp .
+
+*************RUN DOCKER GNINX APP***********************
+docker run -p 880:880 -d nginxapp
+
+
+*************************Python Web Server************************
+#Command in CLI in the same path as the index.html
+#https://www.youtube.com/watch?v=lE6Y6M9xPLw&t=87s
+python2
+python -m  SimpleHTTPServer 801
+python3
+python -m http.server
