@@ -1,8 +1,14 @@
 -------------COMMUN-------------------
+curl cheat.sh/wc .- Spreadsheat, gives online info of diferent commands
+wc .- word wount (-l) line count, (-w) word count, (-m) byte/char count
+less example.txt .- reads the file
 pwd .- current directory
 uname -a  .- Linux version/distribution
 uptime
 cal 2020
+|unique .- Parses output, and avoids duplicated values
+cat -n ej.txt .- show text and line number
+
 
 -----------Linux Distro-----------
 cat /etc/*release

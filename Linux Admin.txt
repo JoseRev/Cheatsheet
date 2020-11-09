@@ -1,6 +1,21 @@
 ##### CENTOS ADMIN TIPS #####
+-----------------------------------
+uptime .- gives the uptime of the device
+-----------------------------------
+-alh 
+-l.- long list
+-a .- all (including hidden)
+-h .- human readable format
 
-s -alh -l .-long list, -a .-all (including hidden), h.- human readable format
+--------------------------------------------------------------------------
+RHCSA.- Red Hat (EX200 Cert) 
+
+LVM.- Logical Volume Manager, Allows the creation of 'groups' of disk or partitions that can be assembled into a single (or multiple) filesystems.
+LV.- Logical Volume 	
+VG.- Volume Group
+PV.- Physical Volume (like har drives)
+
+
 
 
 
