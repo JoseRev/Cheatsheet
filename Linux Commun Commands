@@ -8,9 +8,9 @@ uptime
 cal 2020
 |unique .- Parses output, and avoids duplicated values
 cat -n ej.txt .- show text and line number
-     
+          
 
------------Linux Distro-----------
+-----------Linux Distro-------------
 cat /etc/*release
 cat /proc/version
 lsb_release -a 
