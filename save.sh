@@ -4,8 +4,7 @@
 git add .
 git commit -a -m "Update"
 git push
-
-sleep 5
+sleep 2
 JoseRev
 sleep 2
 Joseluis0205
