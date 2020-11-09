@@ -34,6 +34,15 @@ find . -mmin -20 .- returns files modified less than 20 minutes ago (+20 also av
 find . -mtime -30 -mtime +10.- returns files modified less 30-10 DAYS ago (atime, ctime, amin, cmin available)
 find /var/www/ -size +5M
 find /var/www/ -name "*.jpg" -maxdepth 1 -exec rm {}+ .- removes files that match the first part of the criteria
+
+---------CHMOD------------
+-rw-rw-r-- 1 bucky bucky 0 Aug 4 Corn.- output of ls -l, first - stands for a file of d for directory
+chmod o+w file1.txt .- Adds write privilege permitions to File1
+chmod 777 file1.txt .- Adds privilege _ _ _ - _ _ _ - _ _ _ bits (3 bits per group)
+u - user (owner) - at left
+g - group - middle
+o - other people (outside world) - right
+
 ---------FILE SIZE--------
 find /var/www/backup/ -size +5M (can be k, M, G for sizes)
 du -sh /var/www/backup/
