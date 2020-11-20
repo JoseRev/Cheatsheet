@@ -22,7 +22,17 @@ passwd  root  .-Cambio SSH Issabel Password
 
 ------------CRON----------------
 crontab -e	 (KEYWORD time in the vim file, echos duration of excecution)
-at
+* * * * *  command_to_execute
+| | | | |
+| | | | +- day of week (0 - 7) (where sunday is 0 and 7)
+| | | +--- month (1 - 12)
+| | +----- day (1 - 31)
+| +------- hour (0 - 23)
++--------- minute (0 - 59)
+# every 15 min
+*/15 * * * * /home/user/command.sh
+# every Saturday at 8:05 AM
+5 8 * * 6 /home/user/command.sh
 
 -----------FIND-----------------
 find /proc/ -iname "swap*" .- returns file's path of the matching names
@@ -42,7 +52,8 @@ chmod 777 file1.txt .- Adds privilege _ _ _ - _ _ _ - _ _ _ bits (3 bits per gro
 u - user (owner) - at left
 g - group - middle
 o - other people (outside world) - right
-
+SGID (Set Group ID up on execution) 
+SUID (Set User,owner.. ID up on execution) 
 ---------FILE SIZE--------
 find /var/www/backup/ -size +5M (can be k, M, G for sizes)
 du -sh /var/www/backup/

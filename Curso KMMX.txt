@@ -1,0 +1,222 @@
+
+---------------------Certification--------------------------------
+LPIC.- Certificacion, Linux Professional Institute
+https://www.lpi.org/our-certifications/lpic-1-overview
+Certificacion LPIC-1, Examenes: 101-500, 102-500
+Duracion: 5 años,   Costo $173 dlls. (por examen).
+
+
+
+----------------------Device----------------------------------------------
+MiB vs M (Memoria)
+Fisica	KiB	base10
+			MiB
+			GiB
+			TiB
+Logica	K		base2
+			M
+			G
+			T
+date .- Da la fecha actual  (Ej. date +"%m-%d-%y %H:%M")
+
+filesystem = directory + particiones / lv (logical volume) 
+puedo tener hasta 4 particiones primarias (y N extendidas o lógicas)
+/var.- en var se guardan los logs
+df -h.- particiones disponibles
+-caracter .- consola ()
+-block .- disk units
+cat /proc/cpuinfo | grep processor
+blkid
+dmesg.- Puedes ver mensajes de los sistemas (ej. insertar USB)
+lsusb .- enlistar dispositivos USB
+lsdev.- enlistar los dispositivos
+lsblk -S .- directorios
+--archivos tipo bloque o caracter
+--rom.-Read Only Memory
+lspci .- Conexiones PCI
+lsmod .- modulos que tiene el Kernel
+cat /home/kmmx_hp02/.bash_history (Lee el historial)
+localtectl status.- Dice el layout del teclado
+
+-------------------------ALIAS-----------------------------
+ln prueba2 tes/preubas .- Copia dura, (destino, origen)
+ln -s prueba2 tes/preubas .- Copia suave, (destino, origen)
+
+----------------------Informacion Curso-----------------------
+														Slackware
+		Debian (.deb).- apt install											RedHat (.rpm) yum install
+	Ubuntu		    			Mint				 							  Fedora    				CentOS
+
+Ubuntu-> Basado en Debian
+fast.com .- verificar conexion de internet
+ps -fea (ps fxt).- Muestra todos los procesos que se estan ejecutando
+ ps fxt.- Muestra los procesos, asi como relacion padre/hijo
+ ldd /usr/bin/echo .- muestra cuales son las librerias dinámicas
+snap, docker, flatpak, podman .- Contenedores.
+Instructor Alex Callejas
+@dark_axl
+www.rootzilopochtli.com
+-systemd
+-bind
+Distribucion.- Sistema Operativo Base, + las herramientas que voy a utilizar.
+cat /etc/shadow .- contiene la information de los passwds
+https://fast.com/es/
+
+----------------Comandos Fedora/Centos----------------
+dnf install --downloadonly, --destdir=<path>
+
+--------------------------Almacenamiento-------------------
+fdisk -l .- dice cuantos discos fisicos tiene
+fdisk -l | grep vs | grep Disk
+fdisk -l /dev/sda
+--------------------------Procesos----------------------------
+bashtop
+graphana .- estadistica de consulta a base de datos
+xymon.com .- Pagina demo para software de monitoreo (Nagios está basado en este software)
+
+systemctl list-units .- Muestra los procesos
+systemctl status [start/stop] kthreadd
+systemctl cat openvpn.service.- Muestra la configuracion del servicio en bash
+
+dmesg
+
+
+sleep 300 & .-Programas ejecutados en segundo plano
+sleep  + (ctrl + z) .-Programas ejecutados en segundo plano
+bg %2 .- Programas ejecutados en segundo plano
+fg %2 .-Programas ejecutados en segundo plano
+jobs -l .- (L minuscula, para ver el numero de proceso)
+ps fxt
+kill [-9] [Numero de proceso] 
+nohup .-Allows for a process to live when the terminal gets killed (used in script).
+GRUB2.- Gestor de arranque que lee multiples sistemas operativos
+
+----------------Comandos Ubuntu----------------
+
+cat /etc/shadow.- ntp:*:18577:0:99999:7:::  7 intentos, 99999 dias valida, 18577 numero aleatorio 
+usermod.- agregar el usuario a grupos de pertenencia 
+
+vi /etc/shadow  .- archivo de los passwds
+passwd root (o eleazar) .- Modifica 
+vi /etc/ntp.conf
+ntpq .-  Da informacion de los servidores a los cuales se está conectando
+chrony .-  similar to ntp (chronyc>tracking .-  Feedbacks to the server that is connected)
+cups.- Servidor para imprimir
+-lpc .- interface para imprimir
+-lp y le damos el archivo a imprimir
+apt-cache search ubuntu-desktop 
+apt install kubuntu-desktop (KDE plasma .- Ubuntu top graphical desktop environment) kubuntu-desktop - Kubuntu Plasma Desktop/Netbook system
+strings, hexdump -C, cat .- Para visualizar archivos
+rpm -qa .- (paquetes instalados en fedora/centos)
+| sort -n.- without arguments (sorts in alphabetical order)
+paste f1 f1.- # To concat columns from files:
+apt-get update
+echo $SHELL .- version de shell (Bash es la más utilizada, otros interpretes son rsh, zsh)
+ctrl + r .-busqueda de comandos insertados
+date .- Fecha de hoy
+sed 's/tacos/tamales/g'
+file .- gives information about the files, similar to type
+which echo .-gives the path of the applictacion
+man
+cd - .- Regresa a la ubicacion anterior
+cd .- Regresa a home
+id.- Echos gid, uid, grupos
+virsh.- Virtualizacion en Fedora
+more, less.- puedo visualizar un archivo (y modificarlo con :v).
+strace .- DANGEROUS, explains how a command works
+md5sum passwd.- Firma del archivo
+-----------------------Variables----------------------
+export HOY="9 Nov" .- Exportar las variables
+hoy=(date)  .- Guarda en la variable $hoy, la fecha 9 Nov. 2020 (date es un comando especial)
+hoy=9Nov
+echo $hoy
+
+bash script
+sh script
+./script
+
+
+-------------------------NETWORK-------------------------
+	--OJO-- nmap -sS -A 192.168.122.186 .- ESCANEO de los puertos
+netstat -tulpn   .- Muestra los puertos abiertos
+ss -anpt .- Informacion de la red
+root@PC1:/# nc -l 1822  .- Para escuchar / mandar informacion (sin un -l) en un puerto..
+dig - similar a nslookup
+root@PC1:/# dig www.google.com +trace  .- Da toda la informacion del DNS
+root@PC1:/# dig +short google.us
+	216.58.195.228
+root@PC1:/# dig +short -x 201.117.126.8
+	customer-201-117-126-8.uninet-ide.com.mx.
+root@PC1:/# nmcli
+	wlp3s0: conectado to Totalplay-7254
+        "Ralink RT5390R"
+        wifi (rt2800pci), BC:85:56:6F:32:08, hw, mtu 1500
+        ip4 predeterminado, ip6 predeterminado
+root@PC1:/# ethtool eth0
+	Settings for eth0:
+	Cannot get device settings: No such device
+	Cannot get wake-on-lan settings: No such device
+/etc/resolv.conf .- Tiene configurado los DNS
+service network status
+ethtool eth0 .- Dice si está conectado   
+root@PC1:/# tracepath 8.8.8.8
+ 1?: [LOCALHOST]                      pmtu 1500
+ 1:  10.180.59.107                                         8.856ms 
+ 2:  10.180.59.146                                         7.249ms 
+
+
+
+-------------------------SYSLOG-------------------------
+logger este es un msje
+cat /var/log/syslog
+journalctl .- Base de datos (visualizador de logs)
+journalctl --since=yesterday 
+journalctl -rxa .- Uĺtima ifnrmación
+vi /etc/logrotate.conf
+vi /etc/logrotate.d/wtmp
+cat /var/log/btmp*
+
+
+-------------------------ACL-------------------------
+getacl 
+setacl -m u:manuel:rw- pruebas sedena .- Modifica
+chgrp SEDENA archivo_secreto .- SEDENA es el nombre del grupo, comando para cambiar el grupo de un archivo.
+
+--------------------DUDAS--------------------------
+Del comando top, que significan las distintas columnas, (%MEM es sólo RAM?)
+
+
+---------------------IF---------------------------------
+if ! type -fP bash > /dev/null 2>&1; then
+    printf "ERROR: Dependency 'bash' not met." >&2
+    exit 1
+fi
+----
+if [ $var -eq 0 ]; then
+    printf "Variable '\$var' is equal to '0'.\n"
+fi
+
+
+---------------------FOR---------------------------------
+for WORD in LIST
+do
+    COMMANDS
+	
+done
+----
+for CurDay in Monday Tuesday Wednesday Thursday Friday Saturday Sunday
+do
+    printf "%s\n" "Hoy es el dia $CurDay"
+done
+----
+for CurIter in {1..4}; { echo "$CurIter"; }
+
+---------------------FOR---------------------------------
+:u .- undo (ctrl+z)
+yy .- copies
+pp .- pastes
+
+----------------------SAR-------------------------------
+nano /etc/default/sysstat 
+ENABLED="true"
+service sysstat restart
