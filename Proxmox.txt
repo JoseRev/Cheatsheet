@@ -1,0 +1,43 @@
+******************** PCT Containers *******************	
+pct help | grep -A 3 USAGE | less .- Help
+pct list .- list containers
+pct resume .-
+pct status
+pct console .- Launch a console for specified container
+pct exec .- Executes a command inside a specific LXC 
+pct pull .- Pulls a file from a container 
+pct push .- Pushes a file to a container
+pct config .- get container configuration
+pct clone .- Creates a container clone/copy
+pct restore .- Restore from backup
+pct rollback .- Rollback LXC state to specified snapshot
+******************** PVESM Storage*******************	
+pvesm status
+pvesm set local --content backup,images,iso,rootdir,snippets,vztmpl
+
+******************* PVEAM ISO LXC********************
+pveam list local .- Lists local ISO
+pveam available --section system   .- List posible ISO containers to download
+pveam download local debian-10.0-standard_10.0-1_amd64.tar.gz
+
+*******************Crear LXC con PCT*****************************
+pct create 200 \
+    local:vztmpl/centos-7-default_20190926_amd64.tar.xz 
+    --cores 16 --cpuunits 1024 \
+    --memory 40960 --swap 1280 \
+    --hostname issabel \
+    --net1 name=eth1,ip=10.7.175.201/24, bridge=vmbr0 \
+    --rootfs local:24, size=500000 \
+    --onboot 1
+	
+*******************Crear LXC*****************************
+pvesh create /nodes/pve/lxc \
+      -vmid 1001 \
+      -ostemplate local:vztmpl/centos-7-default_20190926_amd64.tar.xz  \
+      -cores 2 -cpuunits 1024 \
+      -memory 4096 -swap 128 \
+      -hostname issabel \
+      -net1 name=eth1,ip=10.7.175.201/24,bridge=vmbr0 \
+      -rootfs local:24 \
+      -onboot 1
+
