@@ -1,3 +1,9 @@
+-------------ADMIN SERVER-------------
+free -h  .- RAM y Swap
+df -h .- Filesystem size
+passwd .- Reset your password ("passwd vivek" resets vivek's password)
+
+
 -------------COMMUN-------------------
 curl cheat.sh/wc .- Spreadsheat, gives online info of diferent commands
 wc .- word wount (-l) line count, (-w) word count, (-m) byte/char count

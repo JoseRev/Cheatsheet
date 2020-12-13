@@ -1,16 +1,27 @@
+******************** Proxmox Admin *******************	
+cat /etc/pve/lxc/{CONTAINER ID}.conf .- Configuration of LXC
+#pvesh get nodes/pve/lxc  .- pve(NODE ID) maxdisk (HDD), maxmem(RAM)
+┌─────────┬──────┬──────┬──────┬───────────┬──────────┬────────────┬──────────┬──────┬────────────┐
+│ status  │ vmid │ cpus │ lock │   maxdisk │   maxmem │    maxswap │ name     │ tags │     uptime │
+╞═════════╪══════╪══════╪══════╪═══════════╪══════════╪════════════╪══════════╪══════╪════════════╡
+│ running │  201 │   16 │      │ 23.50 GiB │ 4.00 GiB │ 128.00 MiB │ issabel3 │      │ 1h 40m 26s │
+
+
 ******************** PCT Containers *******************	
 pct help | grep -A 3 USAGE | less .- Help
 pct list .- list containers
 pct resume .-
-pct status
-pct console .- Launch a console for specified container
+pct status .-
+pct resize {CTID} rootfs 48G  .- Resize to 48G
+pct enter .- Scape sequence ctrl a + q (other option lxc-attach --name 100  https://forum.proxmox.com/threads/impossible-to-login-root-in-new-lxc.37773/)
 pct exec .- Executes a command inside a specific LXC 
 pct pull .- Pulls a file from a container 
 pct push .- Pushes a file to a container
 pct config .- get container configuration
 pct clone .- Creates a container clone/copy
-pct restore .- Restore from backup
+pct restore .- Restore from ostemplate	
 pct rollback .- Rollback LXC state to specified snapshot
+
 ******************** PVESM Storage*******************	
 pvesm status
 pvesm set local --content backup,images,iso,rootdir,snippets,vztmpl
@@ -21,16 +32,19 @@ pveam available --section system   .- List posible ISO containers to download
 pveam download local debian-10.0-standard_10.0-1_amd64.tar.gz
 
 *******************Crear LXC con PCT*****************************
-pct create 200 \
-    local:vztmpl/centos-7-default_20190926_amd64.tar.xz 
+pct create 201 \
+    local:vztmpl/centos-7-default_20190926_amd64.tar.xz \
     --cores 16 --cpuunits 1024 \
-    --memory 40960 --swap 1280 \
-    --hostname issabel \
-    --net1 name=eth1,ip=10.7.175.201/24, bridge=vmbr0 \
-    --rootfs local:24, size=500000 \
-    --onboot 1
+    --memory 4096 --swap 128 \
+    --hostname issabel3 \
+    --net1 name=eth1,ip=10.7.175.203/24,bridge=vmbr0 \
+    --rootfs local:24 \
+    --onboot 1 \
+    --password joseluis
+
+#Change HDD space? (rootfs, https://pve.proxmox.com/pve-docs/pct.1.html)
 	
-*******************Crear LXC*****************************
+*******************Crear Contenedor *****************************
 pvesh create /nodes/pve/lxc \
       -vmid 1001 \
       -ostemplate local:vztmpl/centos-7-default_20190926_amd64.tar.xz  \
