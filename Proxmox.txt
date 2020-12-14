@@ -1,4 +1,5 @@
 ******************** Proxmox Admin *******************	
+pveversion .- checks pve version
 cat /etc/pve/lxc/{CONTAINER ID}.conf .- Configuration of LXC
 #pvesh get nodes/pve/lxc  .- pve(NODE ID) maxdisk (HDD), maxmem(RAM)
 ┌─────────┬──────┬──────┬──────┬───────────┬──────────┬────────────┬──────────┬──────┬────────────┐
@@ -13,7 +14,7 @@ pct list .- list containers
 pct resume .-
 pct status .-
 pct resize {CTID} rootfs 48G  .- Resize to 48G
-pct enter .- Scape sequence ctrl a + q (other option lxc-attach --name 100  https://forum.proxmox.com/threads/impossible-to-login-root-in-new-lxc.37773/)
+pct enter .- Scape sequence ctrl a + q (other option lxc-attach --name 100    https://forum.proxmox.com/threads/impossible-to-login-root-in-new-lxc.37773/)
 pct exec .- Executes a command inside a specific LXC 
 pct pull .- Pulls a file from a container 
 pct push .- Pushes a file to a container
@@ -21,6 +22,7 @@ pct config .- get container configuration
 pct clone .- Creates a container clone/copy
 pct restore .- Restore from ostemplate	
 pct rollback .- Rollback LXC state to specified snapshot
+pct snapshot {CTID} {SNAPNAME}.-
 
 ******************** PVESM Storage*******************	
 pvesm status
