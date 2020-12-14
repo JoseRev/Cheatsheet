@@ -21,9 +21,9 @@ pct push .- Pushes a file to a container
 pct config .- get container configuration
 pct clone .- Creates a container clone/copy
 pct restore .- Restore from ostemplate	
-pct rollback .- Rollback LXC state to specified snapshot
+pct rollback {CTID} {SNAPNAME}.- Rollback LXC state to specified snapshot
 pct snapshot {CTID} {SNAPNAME}.-
-
+pct listsnapshot {CTID} .- Lists snapshot tree
 ******************** PVESM Storage*******************	
 pvesm status
 pvesm set local --content backup,images,iso,rootdir,snippets,vztmpl
