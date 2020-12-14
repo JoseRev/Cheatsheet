@@ -1,11 +1,20 @@
 ******************** Proxmox Admin *******************	
 pveversion .- checks pve version
-cat /etc/pve/lxc/{CONTAINER ID}.conf .- Configuration of LXC
-#pvesh get nodes/pve/lxc  .- pve(NODE ID) maxdisk (HDD), maxmem(RAM)
+#########
+nano  /etc/pve/lxc/{CONTAINER ID}.conf .- Modify LXC config (RAM,CPU,NETWORK)
+cores: 32
+memory: 8096
+net1: name=eth1,bridge=vmbr0,hwaddr=7A:6D:B5:9A:E7:FE,ip=10.7.175.205/24,type=veth
+##########
+pvesh get nodes/pve/lxc  .- pve(NODE ID) maxdisk (HDD), maxmem(RAM)
 ┌─────────┬──────┬──────┬──────┬───────────┬──────────┬────────────┬──────────┬──────┬────────────┐
 │ status  │ vmid │ cpus │ lock │   maxdisk │   maxmem │    maxswap │ name     │ tags │     uptime │
 ╞═════════╪══════╪══════╪══════╪═══════════╪══════════╪════════════╪══════════╪══════╪════════════╡
 │ running │  201 │   16 │      │ 23.50 GiB │ 4.00 GiB │ 128.00 MiB │ issabel3 │      │ 1h 40m 26s │
+###########
+root@pve:/home# pct listsnapshot 205
+`-> snap1                       2020-12-14 00:06:40     no-description
+    `-> current                                         You are here!
 
 
 ******************** PCT Containers *******************	
