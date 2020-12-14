@@ -34,13 +34,13 @@ pveam available --section system   .- List posible ISO containers to download
 pveam download local debian-10.0-standard_10.0-1_amd64.tar.gz
 
 *******************Crear LXC con PCT*****************************
-pct create 201 \
+pct create 205 \
     local:vztmpl/centos-7-default_20190926_amd64.tar.xz \
     --cores 16 --cpuunits 1024 \
     --memory 4096 --swap 128 \
     --hostname issabel3 \
-    --net1 name=eth1,ip=10.7.175.203/24,bridge=vmbr0 \
-    --rootfs local:24 \
+    --net1 name=eth1,ip=10.7.175.204/24,bridge=vmbr0 \
+    --rootfs local-lvm:24,size=40G \
     --onboot 1 \
     --password joseluis
 
