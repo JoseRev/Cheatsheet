@@ -1,0 +1,59 @@
+PROCEDIMIENTO PARA QUE ISSABEL RECONOZCA LAS TARJETAS SANGOMA
+
+PASOS ANTERIORES
+
+1. install centos 7 minimal (instalacion del sistema operativo)
+2. yum update -y
+3. yum -y install kernel-devel-$(uname -r) libtool make gcc patch perl bison flex-devel gcc-c++ ncurses-devel flex libtermcap-devel autoconf automake* autoconf libxml2-devel cmake
+4. yum install wget -y
+5. cd /usr/src
+6. wget "https://sourceforge.net/projects/issabelpbx/files/Issabel 4/issabel4-asterisk11-netinstall.sh"
+7. chmod 777 issabel4-asterisk11-netinstall.sh
+8. ./issabel4-asterisk11-netinstall.sh (aqui se instala el conmutador ISSABEL)
+9. cd /usr/src/dahdi-linux-2.11.1
+10. make
+11. cd /usr/src
+12. wget -O - http://repo.issabel.org/additional-drivers.sh | bash
+13 systemctl disable fail2ban
+14 systemctl status firewalld
+---------------------------------------------------------------------------------
+Revisar versiones de Issabel a descargar ej. issabel-netinstall-beta.sh
+https://sourceforge.net/projects/issabelpbx/files/Issabel%204/
+---------------------------------------------------------------------------------
+-----------------------------------Actualizado G729------------------------------
+PASOS NUEVOS 6 Jun. 2020:
+1. install centos 7 minimal (instalacion del sistema operativo)
+2. yum update -y
+3. yum -y install kernel-devel-$(uname -r) libtool make gcc patch perl bison flex-devel gcc-c++ ncurses-devel flex libtermcap-devel autoconf automake* autoconf libxml2-devel cmake
+4. yum install wget -y
+5. cd /usr/src
+6. wget "https://sourceforge.net/projects/issabelpbx/files/Issabel 4/issabel-netinstall-beta.sh"
+7. chmod 777 issabel-netinstall-beta.sh
+8. ./issabel-netinstall-beta.sh #(aqui se instala el conmutador ISSABEL)
+9. cd /usr/src/dahdi-linux-2.11.1
+10. make
+11. cd /usr/src
+12. wget -O - http://repo.issabel.org/additional-drivers.sh | bash
+13 systemctl disable fail2ban
+14 systemctl status firewalld
+---------------------------------------------------------------------------------
+wget -O - http://repo.issabel.org/issabel4-asterisk11-netinstall.sh | bash
+
+
+si quieren pueden utilizar github update 
+wget -O - https://github.com/ibinetwork/IssabelBR/raw/master/patch-issabelbr.sh | bash
+
+
+
+
+Así se ve mi carpeta de mi pc virtual que no puedo usar... la solución para revivirla es tan simple como borrar esos "folder" que vemos, los archivos .lck y de paso el que comienza con números y termina con .VMEN.
+
+Con eso nuestra máquina virtual volverá a la normalidad.
+
+¿Qué fue lo que paso?
+
+VMware no permite que mas de una instancia de una maquina virtual en particular se este ejecutando, por lo que crea archivos .lck cada vez que se "enciende" la pc virtual, a modo de bandera, para que nadie mas pueda iniciarla, es una solución practica para un entorno de red.
+
+Al "apagar" la máquina virtual VMware borra esos archivos, pero si por alguna razón VMware terminara "abruptamente" o el dispositivo que contiene los archivos físicos dejaran de estar disponible, no podria efectuar esa acción.
+
+En mi caso, la notebook entro en suspensión y al salir de la misma, comienza a encender los dispositivos que la componen, quedando los usb en último lugar, con lo cual el disco externo no estaba disponible lo que provoco un error critico en VMware.
