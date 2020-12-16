@@ -45,24 +45,21 @@ pveam download local debian-10.0-standard_10.0-1_amd64.tar.gz
 *******************Crear LXC con PCT*****************************
 pct create 205 \
     local:vztmpl/centos-7-default_20190926_amd64.tar.xz \
-    --cores 16 --cpuunits 1024 \
-    --memory 4096 --swap 128 \
+    --cores 32 --cpuunits 1024 \
+    --memory 32096 --swap 128 \
     --hostname issabel3 \
     --net1 name=eth1,ip=10.7.175.204/24,bridge=vmbr0 \
     --rootfs local-lvm:24,size=40G \
     --onboot 1 \
-    --password joseluis
-
-#Change HDD space? (rootfs, https://pve.proxmox.com/pve-docs/pct.1.html)
 	
 *******************Crear Contenedor *****************************
 pvesh create /nodes/pve/lxc \
       -vmid 1001 \
       -ostemplate local:vztmpl/centos-7-default_20190926_amd64.tar.xz  \
-      -cores 2 -cpuunits 1024 \
-      -memory 4096 -swap 128 \
+      -cores 32 -cpuunits 1024 \
+      -memory 32096 -swap 128 \
       -hostname issabel \
-      -net1 name=eth1,ip=10.7.175.201/24,bridge=vmbr0 \
-      -rootfs local:24 \
+      -net1 name=eth1,bridge=vmbr1 \
+      -rootfs local-lvm:24,size=40G \
       -onboot 1
 
