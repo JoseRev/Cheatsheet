@@ -67,8 +67,11 @@ pvesh create /nodes/pve/lxc \
 yum update -y
 yum -y install kernel-devel-$(uname -r) libtool make gcc patch perl bison flex-devel gcc-c++ ncurses-devel flex libtermcap-devel autoconf automake* autoconf libxml2-devel cmake
 yum install wget -y
+yum install nano -y
+yum install net-tools -y
 cd /usr/src
 wget "https://sourceforge.net/projects/issabelpbx/files/Issabel 4/issabel-netinstall-beta.sh"
 chmod 777 issabel-netinstall-beta.sh
 ./issabel-netinstall-beta.sh
+
 
