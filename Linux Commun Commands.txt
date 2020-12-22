@@ -4,6 +4,7 @@ df -h .- Filesystem size
 fdisk -l .- dice cuantos discos fisicos tiene
 fdisk -l /dev/sda
 passwd .- Reset your password ("passwd vivek" resets vivek's password)
+0 0 * * 0  find /var/www/backup/issabelbackup*  -mtime +10 -delete .- Deletes OLD BKUP files
 
 
 -------------COMMUN-------------------
