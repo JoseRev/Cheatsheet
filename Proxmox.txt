@@ -1,3 +1,9 @@
+******************** Proxmox Backup *******************	
+nano /etc/crontab .- CRONTAB for root user
+pct snapshot 1003 "SNAPSHOT_$(date +%a-%F)" .- Makes a SNAPSHOT with a time stamp in the name (Cant have 2 Snaps with same name)
+journalctl _COMM=cron --since="1 minute ago" --until="date"  .- Checks LOGS of CRON
+ 
+ 
 ******************** Proxmox Admin *******************	
 pveversion .- checks pve version
 #########
