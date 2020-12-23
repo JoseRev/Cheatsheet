@@ -1,9 +1,11 @@
 ******************** Proxmox Backup *******************	
 nano /etc/crontab .- CRONTAB for root user
-pct snapshot 1003 "SNAPSHOT_$(date +%a-%F)" .- Makes a SNAPSHOT with a time stamp in the name (Cant have 2 Snaps with same name)
+nano /etc/pve/vzdump.cron .- CRONTAB de Proxmox BACKUP  
+     0 0 1 * *         root vzdump 1001 1002 1003 1005 --quiet 1 --compress zstd --storage NFS_MEDIA_VAULT --mode stop --mailnotification failure
+
 journalctl _COMM=cron --since="1 minute ago" --until="date"  .- Checks LOGS of CRON
- 
- 
+pct snapshot 1003 "SNAPSHOT_$(date +%a-%F)" .- Makes a SNAPSHOT with a time stamp in the name (Cant have 2 Snaps with same name)
+  
 ******************** Proxmox Admin *******************	
 pveversion .- checks pve version
 #########
