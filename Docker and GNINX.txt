@@ -1,3 +1,6 @@
+**************************COMMUN******************************
+docker rm --force redis .- Force removes container
+
 ************Issabel  volume & localhost***********************
 docker run -p 801:4443 \
 -v issabel-etc:/etc -v issabel-www:/var/www \
