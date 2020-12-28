@@ -1,7 +1,10 @@
 ******************** Proxmox Backup *******************	
-nano /etc/crontab .- CRONTAB for root user
-nano /etc/pve/vzdump.cron .- CRONTAB de Proxmox BACKUP  
-     0 0 1 * *         root vzdump 1001 1002 1003 1005 --quiet 1 --compress zstd --storage NFS_MEDIA_VAULT --mode stop --mailnotification failure
+nano /etc/crontab .- CRON para SNAPSHOT DIARIO
+     0 0 * * * root  pct snapshot 1002 SNAPSHOT_$(date +\%a-\%F)
+     0 0 * * * root  pct snapshot 1003 SNAPSHOT_$(date +\%a-\%F)
+nano /etc/pve/vzdump.cron .- CRON para VZDUMP cada 3 dias (SNAP) o mensual (STOP)  
+     0 0 1 * *    root vzdump 1001 1002 1003 1005 --quiet 1 --compress zstd --storage NFS_MEDIA_VAULT --mode stop --mailnotification failure
+     0 0 * * 2,6  root vzdump --all 1 --mode snapshot --node pve --storage local --compress zstd --quiet 1 --mailnotification failure
 
 journalctl _COMM=cron --since="1 minute ago" --until="date"  .- Checks LOGS of CRON
 pct snapshot 1003 "SNAPSHOT_$(date +%a-%F)" .- Makes a SNAPSHOT with a time stamp in the name (Cant have 2 Snaps with same name)
@@ -23,6 +26,28 @@ pvesh get nodes/pve/lxc  .- pve(NODE ID) maxdisk (HDD), maxmem(RAM)
 root@pve:/home# pct listsnapshot 205
 `-> snap1                       2020-12-14 00:06:40     no-description
     `-> current                                         You are here!
+
+**************** Cambiar Nombre del Nodo **************
+#https://forum.proxmox.com/threads/proxmox-node-name-change.14327/
+nano /etc/hosts .- cambiar nombre viejo por el nuevo
+nano /etc/hostname
+nano /etc/postfix/main.cf
+cd /etc/pve/nodes/
+cp -r old new
+rm -r old
+
+##############Reiniciar GUI################
+#https://forum.proxmox.com/threads/the-server-certificate-etc-pve-local-pve-ssl-pem-is-not-yet-active.26459/
+rm /etc/pve/priv/pve-root-ca.key /etc/pve/pve-root-ca.pem
+pvecm updatecerts -f
+systemctl restart pveproxy
+
+*************** Quitar Join Cluster ****************	
+#https://forum.proxmox.com/threads/undo-create-cluster.52247/
+rm -f /etc/pve/corosync.conf
+rm -rf /etc/corosync/*
+systemctl stop corosync pve-cluster
+systemctl start pve-cluster
 
 
 ******************** PCT Containers *******************	
