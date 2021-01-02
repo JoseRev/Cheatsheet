@@ -15,6 +15,7 @@ pct snapshot 1003 "SNAPSHOT_$(date +%a-%F)" .- Makes a SNAPSHOT with a time stam
 journalctl _COMM=cron --since="1 minute ago" --until="date"  .- Checks LOGS of CRON
   
 ******************** Proxmox Admin *******************	
+find . -name "vzdump-lxc-100*" -delete  .- Delete a file based on its name
 pveversion .- checks pve version
 #########
 nano  /etc/pve/lxc/{CONTAINER ID}.conf .- Modify LXC config (RAM,CPU,NETWORK)
