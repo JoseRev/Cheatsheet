@@ -1,13 +1,18 @@
-******************** Proxmox Backup *******************	
+******************** Proxmox VZdump *******************	
+https://pve.proxmox.com/wiki/Storage .- Storage types
+
+
+******************** Proxmox CRON *******************	
 nano /etc/crontab .- CRON para SNAPSHOT DIARIO
      0 0 * * * root  pct snapshot 1002 SNAPSHOT_$(date +\%a-\%F)
      0 0 * * * root  pct snapshot 1003 SNAPSHOT_$(date +\%a-\%F)
-nano /etc/pve/vzdump.cron .- CRON para VZDUMP cada 3 dias (SNAP) o mensual (STOP)  
+nano /etc/pve/vzdump.cron .- CRON para VZDUMP cada 3 dias (SNAP, local) o mensual (STOP, NFS)  
      0 0 1 * *    root vzdump 1001 1002 1003 1005 --quiet 1 --compress zstd --storage NFS_MEDIA_VAULT --mode stop --mailnotification failure
      0 0 * * 2,6  root vzdump --all 1 --mode snapshot --node pve --storage local --compress zstd --quiet 1 --mailnotification failure
 
-journalctl _COMM=cron --since="1 minute ago" --until="date"  .- Checks LOGS of CRON
 pct snapshot 1003 "SNAPSHOT_$(date +%a-%F)" .- Makes a SNAPSHOT with a time stamp in the name (Cant have 2 Snaps with same name)
+###TSHOOT CRON:
+journalctl _COMM=cron --since="1 minute ago" --until="date"  .- Checks LOGS of CRON
   
 ******************** Proxmox Admin *******************	
 pveversion .- checks pve version
