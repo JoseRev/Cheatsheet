@@ -1,5 +1,6 @@
 ******************** Proxmox VZdump *******************	
 https://pve.proxmox.com/wiki/Storage .- Storage types
+root@Burro1:/var/lib/vz/dump	/vzdump-lxc-1001-2021_01_02-00_06_11.tar.zst #
 
 
 ******************** Proxmox CRON *******************	
