@@ -29,7 +29,7 @@ cat /etc/issue*
   
 -------CAMBIO PASSWORD------------CENTOS/ISSABEL-------
 passwd  root  .-Cambio SSH Issabel Password
-/usr/bin/sqlite3 /var/www/db/acl.db "UPDATE acl_user SET md5_password = '`echo -n newpassword|md5sum|cut -d ' ' -f 1`' WHERE name = 'admin'"  .-Cambio GUI Issabel Password 
+/usr/bin/sqlite3 /var/www/db/acl.db "UPDATE acl_user SET md5_password = '`echo -n nuevo_password|md5sum|cut -d ' ' -f 1`' WHERE name = 'admin'"  .- Cambio GUI Issabel Password (nuevo_password), Nvo. password
 
 ------------CRON----------------
 crontab -e	 (KEYWORD time in the vim file, echos duration of excecution)
