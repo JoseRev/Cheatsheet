@@ -10,6 +10,7 @@ find /var/www/backup/*  -amin -10 -deletes files that are more than 10 minutes r
 
 
 -------------COMMUN-------------------
+egrep "filt1|filt2" .- Igual que grep -E "|", y sirve para funciones extendidas de regex
 curl cheat.sh/wc .- Spreadsheat, gives online info of diferent commands
 wc .- word wount (-l) line count, (-w) word count, (-m) byte/char count
 less example.txt .- reads the file

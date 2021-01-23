@@ -1,5 +1,22 @@
 https://ostechnix.com/tmux-command-examples-to-manage-multiple-terminal-sessions/#:~:text=To%20detach%20from%20a%20current,an%20output%20something%20like%20below.
-#Commands to have a running process with closed sessions
+https://www.youtube.com/watch?v=bjBjZvZsgks   413/3  14:17 min 
+
+###Cambiar Parametros###
+Modificar ~/.tmux.conf
+
+###Cambiar de PANES###
+alt+ARROWS
+ctrl+b ARROWS 
+
+###Cambiar de Ventana###
+shift+ARROWS
+ctrl+b P or N
+
+###Nueva Ventana###
+ctrl+b C
+
+###Kill Pane###
+ctrl+b X
 
 tmux new -s webserver .- Create a new session
 tmux new -s ostechnix -d .- Creates a new detached tmux session
