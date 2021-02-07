@@ -22,6 +22,7 @@ ctrl+h .- pane horizontal
 
 ##Cambiar tamaño Pane
 click+arratrar
+ctrl+b (hold ctrl+Arrows L,R,D,U)
 
 ###Kill Pane###
 ctrl+b X
