@@ -7,6 +7,7 @@ Modificar ~/.tmux.conf
 ###Cambiar de PANES###
 alt+ARROWS
 ctrl+b ARROWS 
+click
 
 ###Cambiar de Ventana###
 shift+ARROWS
@@ -14,6 +15,13 @@ ctrl+b P or N
 
 ###Nueva Ventana###
 ctrl+b C
+
+##Nuevo Pane
+ctrl+v .- pane vertical
+ctrl+h .- pane horizontal
+
+##Cambiar tamaño Pane
+click+arratrar
 
 ###Kill Pane###
 ctrl+b X
@@ -23,3 +31,4 @@ tmux new -s ostechnix -d .- Creates a new detached tmux session
 tmux ls.- Lists open Tmux sessions
 tmux a -t ostechnix .- Opens and attaches a previous tmux session
 tmux kill-session -t ostechnix.- Kills a tmux process
+
