@@ -1,2 +1,2 @@
-# Spreadsheat
-Linux, Docker, Kubernetes, Python
+# Cheatsheet
+Linux, Docker, Kubernetes, Python, Tmux
