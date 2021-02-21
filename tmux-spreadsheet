@@ -4,12 +4,15 @@ https://www.youtube.com/watch?v=bjBjZvZsgks   413/3  14:17 min
 ###Cambiar Parametros###
 Modificar ~/.tmux.conf
 
-###Cambiar de PANES###
+### Swap pane###
+ctrl+b o
+
+###Cambiar de PANE seleccionado###
 alt+ARROWS
 ctrl+b ARROWS 
 click
 
-###Cambiar de Ventana###
+###Cambiar de Ventana seleccionado ###
 shift+ARROWS
 ctrl+b P or N
 
@@ -33,9 +36,10 @@ tmux ls.- Lists open Tmux sessions
 tmux a -t ostechnix .- Opens and attaches a previous tmux session
 tmux kill-session -t ostechnix.- Kills a tmux process
 
-#################################################################################################################
-############################################ Prefered .tmux.conf ################################################
-nano /root/.tmux.conf   #UPDATED 7 FEB. 2021
+########################################################
+########################## Prefered .tmux.conf #########
+
+#nano /root/.tmux.conf   #UPDATED 7 FEB. 2021
 
 # Use Alt-arrow keys to switch panes
 bind -n M-Left select-pane -L

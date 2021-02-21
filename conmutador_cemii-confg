@@ -1,0 +1,3547 @@
+
+!
+! No configuration change since last restart
+! NVRAM config last updated at 10:43:57 CST Wed Feb 17 2021 by cisco
+!
+version 15.4
+service timestamps debug datetime msec localtime
+service timestamps log datetime msec localtime
+no service password-encryption
+service internal
+service sequence-numbers
+!
+hostname Conmutador_CEMII
+!
+boot-start-marker
+boot-end-marker
+!
+!
+! card type command needed for slot/vwic-slot 0/0
+logging queue-limit 10000
+logging buffered 10000000
+logging rate-limit 10000
+!
+no aaa new-model
+clock timezone CST -6 0
+clock calendar-valid
+!
+!
+crypto pki trustpoint TP-self-signed-60599622
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-60599622
+ revocation-check none
+ rsakeypair TP-self-signed-60599622
+!
+!
+crypto pki certificate chain TP-self-signed-60599622
+ certificate self-signed 01 nvram:IOS-Self-Sig#3.cer
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+!
+ip dhcp excluded-address 192.168.20.1
+ip dhcp excluded-address 192.168.20.254
+!
+ip dhcp pool VOICE
+ network 192.168.20.0 255.255.255.0
+ default-router 192.168.20.254 
+ option 150 ip 192.168.20.254 
+!
+!
+!
+no ip domain lookup
+ip inspect WAAS flush-timeout 10
+ip cef
+no ipv6 cef
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+trunk group 1
+ carrier-id 55407727
+ description TRONCALES ANALOGICAS TELMEX
+!
+cts logging verbose
+voice-card 0
+ dspfarm
+ dsp services dspfarm
+!
+!
+!
+voice service voip
+ no ip address trusted authenticate
+ allow-connections h323 to h323
+ allow-connections h323 to sip
+ allow-connections sip to h323
+ allow-connections sip to sip
+ no supplementary-service sip moved-temporarily
+ no supplementary-service sip refer
+ no supplementary-service sip handle-replaces
+ fax protocol t38 version 0 ls-redundancy 0 hs-redundancy 0 fallback none
+ modem passthrough nse codec g711ulaw redundancy maximum-sessions 20
+ h323
+  h245 tunnel disable
+  h245 caps mode restricted
+ sip
+  registrar server expires max 3600 min 3600
+  early-offer forced
+  g729 annexb-all
+!
+voice class codec 1
+ codec preference 1 g711ulaw
+ codec preference 2 g729r8
+ codec preference 3 g711alaw
+ codec preference 4 g729br8
+!
+voice class codec 2
+ codec preference 1 g729r8
+ codec preference 2 g729br8
+ codec preference 3 g711ulaw
+ codec preference 4 g711alaw
+!
+voice class h323 1
+  h225 timeout tcp establish 5
+!
+!
+voice class sip-profiles 1
+!
+!
+!
+voice iec syslog
+voice register pool-type  2
+ xml-config maxNumCalls 6
+ xml-config busyTrigger 6
+ xml-config custom sshAccess 0
+ phoneload-support
+ num-lines 2
+ description Cisco IP Phone 7821
+ reference-pooltype 6921
+!
+voice register pool-type  22
+ xml-config maxNumCalls 6
+ xml-config busyTrigger 6
+ xml-config custom sshAccess 0
+ phoneload-support
+ num-lines 2
+ description Cisco IP Phone 7821
+ reference-pooltype 6921
+!
+voice register global
+ mode  cme
+ source-address 192.168.20.254 port 5060
+ max-dn 180
+ max-pool 170
+ load 7821 sip78xx.10-1-1SR1-4
+ authenticate register
+ timezone 9
+ time-format 24
+ date-format D/M/Y
+ tftp-path flash:
+ create profile sync 0016268003574292
+ conference hardware
+!
+voice register dn  1
+ number 1502
+ allow watch
+ name 1502
+ label GPO.ENLACE DIR.
+!
+voice register dn  2
+ number 1503
+ allow watch
+ name SUBDIRECTOR.
+ label SUBDIRECTOR.
+!
+voice register dn  3
+ number 1504
+ allow watch
+ name GPO. ENLACE SUBDIR.
+ label GPO. ENLACE SUBDIR.
+!
+voice register dn  4
+ number 1524
+ allow watch
+ name JEFE SEC. PEDAGOGICA.
+ label JEFE SEC. PEDAGOGICA.
+!
+voice register dn  5
+ number 1535
+ allow watch
+ name JEFE DE SEC. ADMTVA.
+ label JEFE DE SEC. ADMTVA.
+!
+voice register dn  6
+ number 1540
+ allow watch
+ name JEFE DE SEC. ACADEMICA.
+ label JEFE DE SEC. ACADEMICA.
+!
+voice register dn  7
+ number 1597
+ allow watch
+ name CMTE. CPO. DE CADETES.
+ label CMTE. CPO. DE CADETES.
+!
+voice register dn  8
+ number 1505
+ allow watch
+ name JEFATURA DE BIOTERIO
+ label JEFATURA DE BIOTERIO
+!
+voice register dn  9
+ number 1506
+ allow watch
+ name OFICINA ADMINISTRATIVA.
+ label OFICINA ADMINISTRATIVA.
+!
+voice register dn  10
+ number 1507
+ allow watch
+ name JEFATURA DE INV. Y DOC. MIL.
+ label JEFATURA DE INV. Y DOC. MIL.
+!
+voice register dn  11
+ number 1508
+ allow watch
+ name RECEPCION DE INVESTIGACION.
+ label RECEPCION DE INVESTIGACION.
+!
+voice register dn  12
+ number 1509
+ allow watch
+ name JEFATURA SUBSEC. DE CIRUGIA.
+ label JEFATURA SUBSEC. DE CIRUGIA.
+!
+voice register dn  13
+ number 1510
+ allow watch
+ name JEFE DEL GRUPO DE CIRUGIA.
+ label JEFE DEL GRUPO DE CIRUGIA.
+!
+voice register dn  14
+ number 1511
+ allow watch
+ name QUIROFANO 1.
+ label QUIROFANO 1.
+!
+voice register dn  15
+ number 1512
+ allow watch
+ name QUIROFANO 2.
+ label QUIROFANO 2.
+!
+voice register dn  16
+ number 1513
+ allow watch
+ name ANALISIS DE IMAGEN.
+ label ANALISIS DE IMAGEN.
+!
+voice register dn  17
+ number 1514
+ allow watch
+ name MODULO DE INF. A PLAN. MILS.
+ label MODULO DE INF. A PLAN. MILS.
+!
+voice register dn  18
+ number 1515
+ allow watch
+ name JEF.SUB.SEC.DE EVALUCACION.
+ label JEF.SUB.SEC.DE EVALUCACION.
+!
+voice register dn  19
+ number 1516
+ call-forward b2bua all 1656  
+ allow watch
+ name JEF.SUB.SEC.DE DIF.CUL.
+ label JEF.SUB.SEC.DE DIF.CUL.
+!
+voice register dn  20
+ number 1517
+ allow watch
+ name SUB.SEC.DE EVAL.
+ label SUB.SEC.DE EVAL.
+!
+voice register dn  21
+ number 1518
+ allow watch
+ name JEF. SUB DE PLANES.
+ label JEF. SUB DE PLANES.
+!
+voice register dn  22
+ number 1519
+ allow watch
+ name SUB DE PLANES.
+ label SUB DE PLANES.
+!
+voice register dn  23
+ number 1520
+ allow watch
+ name AREA DE TRABAJO.
+ label AREA DE TRABAJO.
+!
+voice register dn  24
+ number 1521
+ allow watch
+ name SUB DE DOCENTES.
+ label SUB DE DOCENTES.
+!
+voice register dn  25
+ number 1522
+ allow watch
+ name SALA DE DOCENTES.
+ label SALA DE DOCENTES.
+!
+voice register dn  26
+ number 1523
+ allow watch
+ name JEF. SUB DE DOCENTES.
+ label JEF. SUB DE DOCENTES.
+!
+voice register dn  27
+ number 1525
+ allow watch
+ name RECEP. DE SECC. PEDAG.
+ label RECEP. DE SECC. PEDAG.
+!
+voice register dn  28
+ number 1526
+ allow watch
+ name SUBSEC. DE CONTABI.
+ label SUBSEC. DE CONTABI.
+!
+voice register dn  29
+ number 1527
+ allow watch
+ name SARGENTO DE DIA E.M.M.
+ label SARGENTO DE DIA E.M.M.
+!
+voice register dn  30
+ number 1528
+ allow watch
+ name JEF. DE AYUDANTIA.
+ label JEF. DE AYUDANTIA.
+!
+voice register dn  31
+ number 1529
+ allow watch
+ name AYUDANTIA GRAL.
+ label AYUDANTIA GRAL.
+!
+voice register dn  32
+ number 1530
+ allow watch
+ name CEDU. DE TRANS Y ANEXO.
+ label CEDU. DE TRANS Y ANEXO.
+!
+voice register dn  33
+ number 1531
+ allow watch
+ name ARCHIVO.
+ label ARCHIVO.
+!
+voice register dn  34
+ number 1532
+ allow watch
+ name PELOTON DE TRANSMISIONES.
+ label PELOTON DE TRANSMISIONES.
+!
+voice register dn  35
+ number 1533
+ allow watch
+ name OFNA. CONTROL Y MONITOREO
+ label OFNA. CONTROL Y MONITOREO
+!
+voice register dn  36
+ number 1534
+ allow watch
+ name CABINA DE AUDIO.
+ label CABINA DE AUDIO.
+!
+voice register dn  37
+ number 1536
+ allow watch
+ name SECC. ADMINISTRATIVA.
+ label SECC. ADMINISTRATIVA.
+!
+voice register dn  38
+ number 1537
+ allow watch
+ name ANEXO SEC. ADMTVA.
+ label ANEXO SEC. ADMTVA.
+!
+voice register dn  39
+ number 1538
+ allow watch
+ name JFA. SUBSEC.BB.MM.
+ label JFA. SUBSEC.BB.MM.
+!
+voice register dn  40
+ number 1539
+ allow watch
+ name SUBSEC.BB.MM.
+ label SUBSEC.BB.MM.
+!
+voice register dn  41
+ number 1541
+ allow watch
+ name SUBSEC. DE SERV. ESCOL.
+ label SUBSEC. DE SERV. ESCOL.
+!
+voice register dn  42
+ number 1542
+ allow watch
+ name AREA DE CALIDAD.
+ label AREA DE CALIDAD.
+!
+voice register dn  43
+ number 1543
+ allow watch
+ name JFA. DE CALIDAD.
+ label JFA. DE CALIDAD.
+!
+voice register dn  44
+ number 1544
+ allow watch
+ name JFA DE CONTROL ACAD.
+ label JFA DE CONTROL ACAD.
+!
+voice register dn  45
+ number 1545
+ allow watch
+ name SUBSEC DE CONTROL ACAD.
+ label SUBSEC DE CONTROL ACAD.
+!
+voice register dn  46
+ number 1546
+ allow watch
+ name RECP. DE CONTROL ACAD.
+ label RECP. DE CONTROL ACAD.
+!
+voice register dn  47
+ number 1547
+ allow watch
+ name JFA. SUBSEC. ESTADIS.
+ label JFA. SUBSEC. ESTADIS.
+!
+voice register dn  48
+ number 1548
+ allow watch
+ name SUBSEC. DE ESTADISTICA.
+ label SUBSEC. DE ESTADISTICA.
+!
+voice register dn  49
+ number 1549
+ allow watch
+ name SUBSEC.DEAPOYOS AUDIOVISU.
+ label SUBSEC.DEAPOYOS AUDIOVISU.
+!
+voice register dn  50
+ number 1550
+ allow watch
+ name SALA DE JUNTA DIRECCION.
+ label SALA DE JUNTA DIRECCION.
+!
+voice register dn  51
+ number 1551
+ allow watch
+ name SALA JUNTAS SEC. ACAD.
+ label SALA JUNTAS SEC. ACAD.
+!
+voice register dn  52
+ number 1552
+ allow watch
+ name JFA. SUBSEC. PSICO.
+ label JFA. SUBSEC. PSICO.
+!
+voice register dn  53
+ number 1553
+ allow watch
+ name AREA ADMTVA. SUBSEC.
+ label AREA ADMTVA. SUBSEC.
+!
+voice register dn  54
+ number 1554
+ allow watch
+ name JFA SEGURIDAD PUBLICA.
+ label JFA SEGURIDAD PUBLICA.
+!
+voice register dn  55
+ number 1555
+ allow watch
+ name SALUD PUBLICA.
+ label SALUD PUBLICA.
+!
+voice register dn  56
+ number 1556
+ allow watch
+ name AREA DE SIMUL. DESTR. BASIC.
+ label AREA DE SIMUL. DESTR. BASIC.
+!
+voice register dn  57
+ number 1557
+ allow watch
+ name PEDIATRIA.
+ label PEDIATRIA.
+!
+voice register dn  58
+ number 1558
+ allow watch
+ name CAMARA HESEL.
+ label CAMARA HESEL.
+!
+voice register dn  59
+ number 1559
+ allow watch
+ name JFA. SUBSEC. DE SIMUL.
+ label JFA. SUBSEC. DE SIMUL.
+!
+voice register dn  60
+ number 1560
+ allow watch
+ name JEFE DEL GPO. DE DESTRE.
+ label JEFE DEL GPO. DE DESTRE.
+!
+voice register dn  61
+ number 1561
+ allow watch
+ name RECEP. SUBSEC. SIMUL.
+ label RECEP. SUBSEC. SIMUL.
+!
+voice register dn  62
+ number 1562
+ allow watch
+ name OFICINA CORD. INGLES.
+ label OFICINA CORD. INGLES.
+!
+voice register dn  63
+ number 1563
+ allow watch
+ name JEFE SECCION. INFORMATICA.
+ label JEFE SECCION. INFORMATICA.
+!
+voice register dn  64
+ number 1564
+ allow watch
+ name SUBSEC. DE REDES.
+ label SUBSEC. DE REDES.
+!
+voice register dn  65
+ number 1565
+ allow watch
+ name SITIO DE COMUNICACIONES.
+ label SITIO DE COMUNICACIONES.
+!
+voice register dn  66
+ number 1566
+ allow watch
+ name SECCCION DE INFORMATICA.
+ label SECCCION DE INFORMATICA.
+!
+voice register dn  67
+ number 1567
+ allow watch
+ name TALLER Y ALMACEN DE INFOR.
+ label TALLER Y ALMACEN DE INFOR.
+!
+voice register dn  68
+ number 1568
+ allow watch
+ name LAB DE IDIOMAS.
+ label LAB DE IDIOMAS.
+!
+voice register dn  69
+ number 1569
+ allow watch
+ name GABINETE DE ELECTRO.
+ label GABINETE DE ELECTRO.
+!
+voice register dn  70
+ number 1570
+ allow watch
+ name JFA.SUBSEC.DE FISIOLOGIA.
+ label JFA.SUBSEC.DE FISIOLOGIA.
+!
+voice register dn  71
+ number 1571
+ allow watch
+ name JEFE DEL GRUPO DE NEUROFI.
+ label JEFE DEL GRUPO DE NEUROFI.
+!
+voice register dn  72
+ number 1572
+ allow watch
+ name JFA.SUBSEC. FARMA.
+ label JFA.SUBSEC. FARMA.
+!
+voice register dn  73
+ number 1573
+ allow watch
+ name JEFE DEL GRUPO DE NEURO.
+ label JEFE DEL GRUPO DE NEURO.
+!
+voice register dn  74
+ number 1574
+ allow watch
+ label JFA. SECC. DE LAB.
+!
+voice register dn  75
+ number 1575
+ allow watch
+ name JFA. SUBSEC.DE EMBRIOLOGIA.
+ label JFA. SUBSEC.DE EMBRIOLOGIA.
+!
+voice register dn  76
+ number 1576
+ allow watch
+ name JEFE DEL GRUP DE EMBRI.
+ label JEFE DEL GRUP DE EMBRI.
+!
+voice register dn  77
+ number 1577
+ allow watch
+ name JFA.SUBSEC.DE BIOLOGIA.
+ label JFA.SUBSEC.DE BIOLOGIA.
+!
+voice register dn  78
+ number 1578
+ allow watch
+ name JEFE DEL GRUPO DE BIOLOGIA.
+ label JEFE DEL GRUPO DE BIOLOGIA.
+!
+voice register dn  79
+ number 1579
+ allow watch
+ name LAB. DE MICROBIOLOGIA.
+ label LAB. DE MICROBIOLOGIA.
+!
+voice register dn  80
+ number 1580
+ allow watch
+ name LAB. DE CROMATOGRAFIA.
+ label LAB. DE CROMATOGRAFIA.
+!
+voice register dn  81
+ number 1581
+ allow watch
+ name LAB. DE FARMACOCINETICA.
+ label LAB. DE FARMACOCINETICA.
+!
+voice register dn  82
+ number 1582
+ allow watch
+ name JFA. SUBSEC. DE MICROBIOLOGIA.
+ label JFA. SUBSEC. DE MICROBIOLOGIA.
+!
+voice register dn  83
+ number 1583
+ allow watch
+ name JFA. SUBSEC.DE BIOQUIMICA.
+ label JFA. SUBSEC.DE BIOQUIMICA.
+!
+voice register dn  84
+ number 1584
+ allow watch
+ name OFICINA CORD DE INMUNOLOGIA.
+ label OFICINA CORD DE INMUNOLOGIA.
+!
+voice register dn  85
+ number 1585
+ allow watch
+ name PROF. ADJ. DE INMUNOLOGIA.
+ label PROF. ADJ. DE INMUNOLOGIA.
+!
+voice register dn  86
+ number 1586
+ allow watch
+ name AREA TECNICA.
+ label AREA TECNICA.
+!
+voice register dn  87
+ number 1587
+ allow watch
+ name JFA. SUBSEC. DE ANATOMIA.
+ label JFA. SUBSEC. DE ANATOMIA.
+!
+voice register dn  88
+ number 1588
+ allow watch
+ name JEFE DEL GPO. DE ANATOMIA.
+ label JEFE DEL GPO. DE ANATOMIA.
+!
+voice register dn  89
+ number 1589
+ allow watch
+ name DEPO. DE VEST. Y EQUIPO.
+ label DEPO. DE VEST. Y EQUIPO.
+!
+voice register dn  90
+ number 1590
+ allow watch
+ name ALMACEN Resdcia.Ings.
+ label ALMACEN Resdcia.Ings.
+!
+voice register dn  91
+ number 1591
+ allow watch
+ name RESIDENCIA DE INGENIEROS.
+ label RESIDENCIA DE INGENIEROS.
+!
+voice register dn  92
+ number 1592
+ allow watch
+ name DEPO. GRAL. DE ARMAMENTO.
+ label DEPO. GRAL. DE ARMAMENTO.
+!
+voice register dn  93
+ number 1593
+ allow watch
+ name COMP. DE SVS GRAL.
+ label JFA. SUBSEC.DE BIOQUIMICA.
+!
+voice register dn  94
+ number 1594
+ allow watch
+ name JEFATURA MATERIALES DE GUERRA.
+ label JEFATURA MATERIALES DE GUERRA.
+!
+voice register dn  95
+ number 1595
+ allow watch
+ name OFICINA MATERIALES DE GUERRA.
+ label OFICINA MATERIALES DE GUERRA.
+!
+voice register dn  96
+ number 1596
+ allow watch
+ name OFICINAS DE TRANSPORTE.
+ label OFICINAS DE TRANSPORTE.
+!
+voice register dn  97
+ number 1598
+ allow watch
+ name SRIA.CMCIA.DEL CPO.DE CDTES.
+ label SRIA.CMCIA.DEL CPO.DE CDTES.
+!
+voice register dn  98
+ number 1599
+ allow watch
+ name 5/a CIA.PNAL.FEM LADOA.
+ label 5/a CIA.PNAL.FEM LADOA.
+!
+voice register dn  99
+ number 1600
+ allow watch
+ name 5/a CIA.PNAL.FEM LADOB.
+ label 5/a CIA.PNAL.FEM LADOB.
+!
+voice register dn  100
+ number 1601
+ allow watch
+ name 4/a CIA.PNAL.FEM LADOA.
+ label 4/a CIA.PNAL.FEM LADOA.
+!
+voice register dn  101
+ number 1602
+ call-forward b2bua all 1607  
+ allow watch
+ name 4/a CIA.PNAL.FEM LADOB.
+ label 4/a CIA.PNAL.FEM LADOB.
+!
+voice register dn  102
+ number 1603
+ allow watch
+ name 3/a CIA.PNAL.MASC LADOA
+ label 3/a CIA.PNAL.MASC LADOA.
+!
+voice register dn  103
+ number 1604
+ allow watch
+ name 3/a CIA.PNAL.MASC LADOB.
+ label 3/a CIA.PNAL.MASC LADOB.
+!
+voice register dn  104
+ number 1605
+ allow watch
+ name 2/a CIA.PNAL MASC LADOA.
+ label 2/a CIA.PNAL MASC LADOA.
+!
+voice register dn  105
+ number 1606
+ allow watch
+ name 2/a CIA.PNAL MASC LADOB.
+ label 2/a CIA.PNAL MASC LADOB.
+!
+voice register dn  106
+ number 1607
+ allow watch
+ name 1/a CIA.PNAL MASC LADOA.
+ label 1/a CIA.PNAL MASC LADOA.
+!
+voice register dn  107
+ number 1608
+ allow watch
+ name 1/a CIA.PNAL MASC LADOB.
+ label 1/a CIA.PNAL MASC LADOB.
+!
+voice register dn  108
+ number 1609
+ allow watch
+ name ARCHIVO CLINICO.
+ label ARCHIVO CLINICO.
+!
+voice register dn  109
+ number 1610
+ allow watch
+ name FARMACIA.
+ label FARMACIA.
+!
+voice register dn  110
+ number 1611
+ allow watch
+ name CONSULTORIO MEDICO 1.
+ label CONSULTORIO MEDICO 1.
+!
+voice register dn  111
+ number 1612
+ allow watch
+ name CONSULTORIO MEDICO 2.
+ label CONSULTORIO MEDICO 2.
+!
+voice register dn  112
+ number 1613
+ allow watch
+ name CONSULTORIO DENTAL 1.
+ label CONSULTORIO DENTAL 1.
+!
+voice register dn  113
+ number 1614
+ allow watch
+ name CONSULTORIO DENTAL 2.
+ label CONSULTORIO DENTAL 2.
+!
+voice register dn  114
+ number 1615
+ allow watch
+ name ESTACICN DE ENFERMERAS.
+ label ESTACICN DE ENFERMERAS.
+!
+voice register dn  115
+ number 1616
+ allow watch
+ name CMTE. DE GDIA. E.M.M.
+ label CMTE. DE GDIA. E.M.M.
+!
+voice register dn  116
+ number 1617
+ call-forward b2bua all 1618  
+ allow watch
+ name OFICINA DE PAGADURIA.
+ label OFICINA DE PAGADURIA.
+!
+voice register dn  117
+ number 1618
+ allow watch
+ name ARCHIVO CONTABLE.
+ label ARCHIVO CONTABLE.
+!
+voice register dn  118
+ number 1619
+ allow watch
+ name PELUQUERIA.
+ label PELUQUERIA.
+!
+voice register dn  119
+ number 1620
+ allow watch
+ name SALA DE ESPERA A.
+ label SALA DE ESPERA A.
+!
+voice register dn  120
+ number 1621
+ allow watch
+ name SALA DE ESPERA B.
+ label SALA DE ESPERA B.
+!
+voice register dn  121
+ number 1622
+ allow watch
+ name CABINA PROYECCION AUDITORIO
+ label CABINA PROYECCION AUDITORIO
+!
+voice register dn  122
+ number 1623
+ allow watch
+ name CAMERINO DE HOMBRES.
+ label CAMERINO DE HOMBRES.
+!
+voice register dn  123
+ number 1624
+ allow watch
+ name CAMERINO DE MUJERES.
+ label CAMERINO DE MUJERES.
+!
+voice register dn  124
+ number 1625
+ allow watch
+ name TRADUCCION SIMULTANEA CEMICSA
+ label TRADUCCION SIMULTANEA CEMICSA
+!
+voice register dn  125
+ number 1626
+ allow watch
+ name AULA TELMEX.
+ label AULA TELMEX.
+!
+voice register dn  126
+ number 1627
+ allow watch
+ name ATENCION A DISCENTES.
+ label ATENCION A DISCENTES.
+!
+voice register dn  127
+ number 1628
+ allow watch
+ name ADMINISTRADOR BIBLIOTECA.
+ label 1628
+!
+voice register dn  128
+ number 1629
+ allow watch
+ name SALA DE EXPOSICION.
+ label SALA DE EXPOSICION.
+!
+voice register dn  129
+ number 1630
+ allow watch
+ name ZONA DE VENTAS.
+ label ZONA DE VENTAS.
+!
+voice register dn  130
+ number 1631
+ allow watch
+ name EDUCACION FIS. E.M.M.
+ label EDUCACION FIS. E.M.M.
+!
+voice register dn  131
+ number 1632
+ allow watch
+ name EDUCACION FIS. E.M.G.S.
+ label EDUCACION FIS. E.M.G.S.
+!
+voice register dn  132
+ number 1633
+ allow watch
+ name EDUCACION FIS. E.M.0.
+ label EDUCACION FIS. E.M.0.
+!
+voice register dn  133
+ number 1634
+ allow watch
+ name EDUCACION FIS. E.M.O.S.
+ label EDUCACION FIS. E.M.O.S.
+!
+voice register dn  134
+ number 1635
+ allow watch
+ name EDUCACION FIS. E.M.C.S.
+ label EDUCACION FIS. E.M.C.S.
+!
+voice register dn  135
+ number 1636
+ allow watch
+ name CAB.DE SONIDO Y CRON.
+ label CAB.DE SONIDO Y CRON.
+!
+voice register dn  136
+ number 1637
+ allow watch
+ name PALCO ALBERCA.
+ label PALCO ALBERCA.
+!
+voice register dn  137
+ number 1638
+ allow watch
+ name CAB. DE AUDIO-GYM.
+ label CAB. DE AUDIO-GYM.
+!
+voice register dn  138
+ number 1639
+ allow watch
+ name SALON DE USOS MULT.
+ label SALON DE USOS MULT.
+!
+voice register dn  139
+ number 1640
+ allow watch
+ name CAB. DE AUDIO-CANCHAS.
+ label CAB. DE AUDIO-CANCHAS.
+!
+voice register dn  140
+ number 1641
+ allow watch
+ name GUARDIA LOZA.
+ label GUARDIA LOZA.
+!
+voice register dn  141
+ number 1642
+ allow watch
+ name ALAMCEN DE LAVANDERIA.
+ label ALAMCEN DE LAVANDERIA.
+!
+voice register dn  142
+ number 1643
+ allow watch
+ name JEF.DEL SERV.DE INTEN.
+ label JEF.DEL SERV.DE INTEN.
+!
+voice register dn  143
+ number 1644
+ allow watch
+ name OFNA.  CONTABILIDAD INT.
+ label OFNA.  CONTABILIDAD INT.
+!
+voice register dn  144
+ number 1645
+ allow watch
+ name CAB.SONIDO-COMEDOR
+ label CAB.SONIDO-COMEDOR
+!
+voice register dn  145
+ number 1646
+ allow watch
+ name JEF.SITIO DE CMNS.
+ label JEF.SITIO DE CMNS.
+!
+voice register dn  146
+ number 1647
+ allow watch
+ name CORREO ELECTRONICO.
+ label CORREO ELECTRONICO.
+!
+voice register dn  147
+ number 1648
+ allow watch
+ name CENTRO DE MONITOREO.
+ label CENTRO DE MONITOREO.
+!
+voice register dn  148
+ number 1649
+ allow watch
+ name CASETA VIG.1 GDIA.
+ label CASETA VIG.1 GDIA.
+!
+voice register dn  149
+ number 1650
+ allow watch
+ name CASETA VIG.2 EST.
+ label CASETA VIG.2 EST.
+!
+voice register dn  150
+ number 1651
+ allow watch
+ name CASETA VIG.3 ALOJ.
+ label CASETA VIG.3 ALOJ.
+!
+voice register dn  151
+ number 1652
+ allow watch
+ name CASETA VIG.4 PERIF.
+ label CASETA VIG.4 PERIF.
+!
+voice register dn  152
+ number 1653
+ allow watch
+ name CASETA VIG.5 BAT.CLYA SND.
+ label CASETA VIG.5 BAT.CLYA SND.
+!
+voice register dn  153
+ number 1654
+ allow watch
+ name JEFE GRUPO MICROBIOLOGIA
+ label JEFE GRUPO MICROBIOLOGIA
+!
+voice register dn  154
+ number 1655
+ allow watch
+ name CASETA VIG.7 IDELF.COMDR.
+ label CASETA VIG.7 IDELF.COMDR.
+!
+voice register dn  155
+ number 1656
+ allow watch
+ name DIFUSION CULTURAL.
+ label DIFUSION CULTURAL.
+!
+voice register pool  1
+ busy-trigger-per-button 2
+ id mac DCCE.C1D4.C829
+ type 7821
+ number 1 dn 1
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username cisco password cisco
+ description 1502
+!
+voice register pool  2
+ busy-trigger-per-button 1
+ id mac DCCE.C1D4.C8A1
+ type 7821
+ number 1 dn 2
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username cisco2 password cisco2
+ description 1503
+!
+voice register pool  3
+ busy-trigger-per-button 1
+ id mac DCCE.C1D4.B3C1
+ type 7821
+ number 1 dn 3
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1504 password 1504
+ description 1504
+!
+voice register pool  4
+ busy-trigger-per-button 1
+ id mac DCCE.C1D4.B577
+ type 7821
+ number 1 dn 4
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1524 password 1524
+ description 1524
+!
+voice register pool  5
+ busy-trigger-per-button 1
+ id mac DCCE.C1D4.B85A
+ type 7821
+ number 1 dn 5
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1535 password 1535
+ description 1535
+!
+voice register pool  6
+ busy-trigger-per-button 1
+ id mac DCCE.C1D4.B545
+ type 7821
+ number 1 dn 6
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1540 password 1540
+ description 1540
+!
+voice register pool  7
+ busy-trigger-per-button 1
+ id mac DCCE.C1D4.B82F
+ type 7821
+ number 1 dn 7
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1597 password 1504
+ description 1597
+!
+voice register pool  8
+ busy-trigger-per-button 1
+ id mac DCCE.C1D4.B576
+ type 7821
+ number 1 dn 8
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1505 password 1505
+ description 1505
+!
+voice register pool  9
+ busy-trigger-per-button 1
+ id mac DCCE.C1D4.B5A0
+ type 7821
+ number 1 dn 9
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1506 password 1506
+ description 1506
+!
+voice register pool  10
+ busy-trigger-per-button 1
+ id mac DCCE.C1D4.B5D9
+ type 7821
+ number 1 dn 10
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1507 password 1507
+ description 1507
+!
+voice register pool  11
+ busy-trigger-per-button 2
+ id mac DCCE.C1D4.B62A
+ type 7821
+ number 1 dn 11
+ dtmf-relay rtp-nte sip-notify
+ username 1508 password 1508
+ description 1508
+!
+voice register pool  12
+ busy-trigger-per-button 1
+ id mac DCCE.C1D4.B871
+ type 7821
+ number 1 dn 12
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1509 password 1509
+ description 1509
+!
+voice register pool  13
+ busy-trigger-per-button 2
+ id mac DCCE.C1D4.C864
+ type 7821
+ number 1 dn 13
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1510 password 1510
+ description 1510
+!
+voice register pool  14
+ busy-trigger-per-button 2
+ id mac DCCE.C1D4.C8E2
+ type 7821
+ number 1 dn 14
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1511 password 1511
+ description 1511
+!
+voice register pool  15
+ busy-trigger-per-button 2
+ id mac DCCE.C1D4.C813
+ type 7821
+ number 1 dn 15
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1512 password 1512
+ description 1512
+!
+voice register pool  16
+ busy-trigger-per-button 2
+ id mac DCCE.C1D4.C8B3
+ type 7821
+ number 1 dn 16
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1513 password 1513
+ description 1513
+!
+voice register pool  17
+ busy-trigger-per-button 2
+ id mac DCCE.C1D4.C8E7
+ type 7821
+ number 1 dn 17
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1514 password 1514
+ description 1514
+!
+voice register pool  18
+ busy-trigger-per-button 2
+ id mac DCCE.C1D4.C987
+ type 7821
+ number 1 dn 18
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1515 password 1515
+ description 1515
+!
+voice register pool  19
+ busy-trigger-per-button 2
+ id mac DCCE.C1D4.C896
+ type 7821
+ number 1 dn 19
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1516 password 1516
+ description 1516
+!
+voice register pool  20
+ busy-trigger-per-button 2
+ id mac DCCE.C1D4.C80C
+ type 7821
+ number 1 dn 20
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1517 password 1517
+ description 1517
+!
+voice register pool  21
+ busy-trigger-per-button 2
+ id mac DCCE.C1D4.B582
+ type 7821
+ number 1 dn 21
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1518 password 1518
+ description 1518
+!
+voice register pool  22
+ busy-trigger-per-button 2
+ id mac DCCE.C1D4.B279
+ type 7821
+ number 1 dn 22
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1519 password 1519
+ description 1519
+!
+voice register pool  23
+ busy-trigger-per-button 2
+ id mac DCCE.C1D4.B271
+ type 7821
+ number 1 dn 23
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1520 password 1520
+ description 1520
+!
+voice register pool  24
+ busy-trigger-per-button 2
+ id mac DCCE.C1D4.B722
+ type 7821
+ number 1 dn 24
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1521 password 1521
+ description 1521
+!
+voice register pool  25
+ busy-trigger-per-button 1
+ id mac DCCE.C1D4.B4CF
+ type 7821
+ number 1 dn 25
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1522 password 1522
+ description 1522
+!
+voice register pool  26
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BEED
+ type 7821
+ number 1 dn 26
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1523 password 1523
+ description 1523
+!
+voice register pool  27
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE84
+ type 7821
+ number 1 dn 27
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1525 password 1525
+ description 1525
+!
+voice register pool  28
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE85
+ type 7821
+ number 1 dn 28
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1526 password 1526
+ description 1526
+!
+voice register pool  29
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE5E
+ type 7821
+ number 1 dn 29
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1527 password 1527
+ description 1527
+!
+voice register pool  30
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BC8F
+ type 7821
+ number 1 dn 30
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1528 password 1528
+ description 1528
+!
+voice register pool  31
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.C05C
+ type 7821
+ number 1 dn 31
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1529 password 1529
+ description 1529
+!
+voice register pool  32
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE35
+ type 7821
+ number 1 dn 32
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1530 password 1530
+ description 1530
+!
+voice register pool  33
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BDD3
+ type 7821
+ number 1 dn 33
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1531 password 1531
+ description 1531
+!
+voice register pool  34
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BD68
+ type 7821
+ number 1 dn 34
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1532 password 1532
+ description 1532
+!
+voice register pool  35
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.C00F
+ type 7821
+ number 1 dn 35
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1533 password 1533
+ description 1533
+!
+voice register pool  36
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BDB2
+ type 7821
+ number 1 dn 36
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1534 password 1534
+ description 1534
+!
+voice register pool  37
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BD89
+ type 7821
+ number 1 dn 37
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1536 password 1536
+ description 1536
+!
+voice register pool  38
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BEDD
+ type 7821
+ number 1 dn 38
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1537 password 1537
+ description 1537
+!
+voice register pool  39
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8CAF
+ type 7821
+ number 1 dn 39
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1538 password 1538
+ description 1538
+!
+voice register pool  40
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BDEA
+ type 7821
+ number 1 dn 40
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1539 password 1539
+ description 1539
+!
+voice register pool  41
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8FE1
+ type 7821
+ number 1 dn 41
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1541 password 1541
+ description 1541
+!
+voice register pool  42
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BFF0
+ type 7821
+ number 1 dn 42
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1542 password 1542
+ description 1542
+!
+voice register pool  43
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BD7A
+ type 7821
+ number 1 dn 43
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1543 password 1543
+ description 1543
+!
+voice register pool  44
+ busy-trigger-per-button 2
+ id mac C472.95A9.03F0
+ type 7821
+ number 1 dn 44
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1544 password 1544
+ description 1544
+!
+voice register pool  45
+ busy-trigger-per-button 2
+ id mac C472.95A9.040A
+ type 7821
+ number 1 dn 45
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1545 password 1545
+ description 1545
+!
+voice register pool  46
+ busy-trigger-per-button 2
+ id mac C472.95A9.03F6
+ type 7821
+ number 1 dn 46
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1546 password 1546
+ description 1546
+!
+voice register pool  47
+ busy-trigger-per-button 2
+ id mac C472.95A9.03FB
+ type 7821
+ number 1 dn 47
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1547 password 1547
+ description 1547
+!
+voice register pool  48
+ busy-trigger-per-button 2
+ id mac C472.95A9.03AB
+ type 7821
+ number 1 dn 48
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1548 password 1548
+ description 1548
+!
+voice register pool  49
+ busy-trigger-per-button 2
+ id mac C472.95A9.0ACF
+ type 7821
+ number 1 dn 49
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1549 password 1549
+ description 1549
+!
+voice register pool  50
+ busy-trigger-per-button 2
+ id mac C472.95A9.03EF
+ type 7821
+ number 1 dn 50
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1550 password 1550
+ description 1550
+!
+voice register pool  51
+ busy-trigger-per-button 2
+ id mac C472.95A9.03AE
+ type 7821
+ number 1 dn 51
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1551 password 1551
+ description 1551
+!
+voice register pool  52
+ busy-trigger-per-button 2
+ id mac C472.95A9.03A1
+ type 7821
+ number 1 dn 52
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-kpml sip-notify
+ username 1552 password 1552
+ description 1552
+!
+voice register pool  53
+ busy-trigger-per-button 2
+ id mac C472.95A9.0412
+ type 7821
+ number 1 dn 53
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1553 password 1553
+ description 1553
+!
+voice register pool  54
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE73
+ type 7821
+ number 1 dn 54
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1554 password 1554
+ description 1554
+!
+voice register pool  55
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE71
+ type 7821
+ number 1 dn 55
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1555 password 1555
+ description 1555
+!
+voice register pool  56
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BDC0
+ type 7821
+ number 1 dn 56
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1556 password 1556
+ description 1556
+!
+voice register pool  57
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE6B
+ type 7821
+ number 1 dn 57
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1557 password 1557
+ description 1557
+!
+voice register pool  58
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE1D
+ type 7821
+ number 1 dn 58
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1558 password 1558
+ description 1558
+!
+voice register pool  59
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BDDF
+ type 7821
+ number 1 dn 59
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1559 password 1559
+ description 1559
+!
+voice register pool  60
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BCEB
+ type 7821
+ number 1 dn 60
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1560 password 1560
+ description 1560
+!
+voice register pool  61
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE58
+ type 7821
+ number 1 dn 61
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1561 password 1561
+ description 1561
+!
+voice register pool  62
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BFA4
+ type 7821
+ number 1 dn 62
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1562 password 1562
+ description 1562
+!
+voice register pool  63
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE63
+ type 7821
+ number 1 dn 63
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1563 password 1563
+ description 1563
+!
+voice register pool  64
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.2AE7
+ type 7821
+ number 1 dn 64
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1564 password 1564
+ description 1564
+!
+voice register pool  65
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.2AFD
+ type 7821
+ number 1 dn 65
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1565 password 1565
+ description 1565
+!
+voice register pool  66
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.2AEF
+ type 7821
+ number 1 dn 66
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1566 password 1566
+ description 1566
+!
+voice register pool  67
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.2AD6
+ type 7821
+ number 1 dn 67
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1567 password 1567
+ description 1567
+!
+voice register pool  68
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.2B8E
+ type 7821
+ number 1 dn 68
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1568 password 1568
+ description 1568
+!
+voice register pool  69
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.2AE0
+ type 7821
+ number 1 dn 69
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1569 password 1569
+ description 1569
+!
+voice register pool  70
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.2AE3
+ type 7821
+ number 1 dn 70
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1570 password 1570
+ description 1570
+!
+voice register pool  71
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.2AD9
+ type 7821
+ number 1 dn 71
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1571 password 1571
+ description 1571
+!
+voice register pool  72
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.2B80
+ type 7821
+ number 1 dn 72
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1572 password 1572
+ description 1572
+!
+voice register pool  73
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.2AEB
+ type 7821
+ number 1 dn 73
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1573 password 1573
+ description 1573
+!
+voice register pool  74
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BF35
+ type 7821
+ number 1 dn 74
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1574 password 1574
+ description 1574
+!
+voice register pool  75
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BD97
+ type 7821
+ number 1 dn 75
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1575 password 1575
+ description 1575
+!
+voice register pool  76
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8C47
+ type 7821
+ number 1 dn 76
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1576 password 1576
+ description 1576
+!
+voice register pool  77
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.C037
+ type 7821
+ number 1 dn 77
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1577 password 1577
+ description 1577
+!
+voice register pool  78
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BDCF
+ type 7821
+ number 1 dn 78
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1578 password 1578
+ description 1578
+!
+voice register pool  79
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.C01E
+ type 7821
+ number 1 dn 79
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1579 password 1579
+ description 1579
+!
+voice register pool  80
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE0C
+ type 7821
+ number 1 dn 80
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1580 password 1580
+ description 1580
+!
+voice register pool  81
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE4F
+ type 7821
+ number 1 dn 81
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1581 password 1581
+ description 1581
+!
+voice register pool  82
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE0F
+ type 7821
+ number 1 dn 82
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1582 password 1582
+ description 1582
+!
+voice register pool  83
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BF31
+ type 7821
+ number 1 dn 83
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1583 password 1583
+ description 1583
+!
+voice register pool  84
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8BF6
+ type 7821
+ number 1 dn 84
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1584 password 1584
+ description 1584
+!
+voice register pool  85
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BDFD
+ type 7821
+ number 1 dn 85
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1585 password 1585
+ description 1585
+!
+voice register pool  86
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8CF4
+ type 7821
+ number 1 dn 86
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1586 password 1586
+ description 1586
+!
+voice register pool  87
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BEA2
+ type 7821
+ number 1 dn 87
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1587 password 1587
+ description 1587
+!
+voice register pool  88
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8C1B
+ type 7821
+ number 1 dn 88
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1588 password 1588
+ description 1588
+!
+voice register pool  89
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8C04
+ type 7821
+ number 1 dn 89
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1589 password 1589
+ description 1589
+!
+voice register pool  90
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BDAC
+ type 7821
+ number 1 dn 90
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1590 password 1590
+ description 1590
+!
+voice register pool  91
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE4B
+ type 7821
+ number 1 dn 91
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1591 password 1591
+ dnd
+ description 1591
+!
+voice register pool  92
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BDF8
+ type 7821
+ number 1 dn 92
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1592 password 1592
+ description 1592
+!
+voice register pool  93
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE2C
+ type 7821
+ number 1 dn 93
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1593 password 1593
+ description 1593
+!
+voice register pool  94
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE89
+ type 7821
+ number 1 dn 94
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1594 password 1594
+ description 1594
+!
+voice register pool  95
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE90
+ type 7821
+ number 1 dn 95
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1595 password 1595
+ description 1595
+!
+voice register pool  96
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE9C
+ type 7821
+ number 1 dn 96
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1596 password 1596
+ description 1596
+!
+voice register pool  97
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BEA5
+ type 7821
+ number 1 dn 97
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1598 password 1598
+ description 1598
+!
+voice register pool  98
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8F28
+ type 7821
+ number 1 dn 98
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1599 password 1599
+ description 1599
+!
+voice register pool  99
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE5A
+ type 7821
+ number 1 dn 99
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1600 password 1600
+ description 1600
+!
+voice register pool  100
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE7C
+ type 7821
+ number 1 dn 100
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1601 password 1601
+ description 1601
+!
+voice register pool  101
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BD02
+ type 7821
+ number 1 dn 101
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1602 password 1602
+ description 1602
+!
+voice register pool  102
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE72
+ type 7821
+ number 1 dn 102
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1603 password 1603
+ description 1603
+!
+voice register pool  103
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8C4F
+ type 7821
+ number 1 dn 103
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1604 password 1604
+ description 1604
+!
+voice register pool  104
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BDDA
+ type 7821
+ number 1 dn 104
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1605 password 1605
+ description 1605
+!
+voice register pool  105
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BDA2
+ type 7821
+ number 1 dn 105
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1606 password 1606
+ description 1606
+!
+voice register pool  106
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BEAC
+ type 7821
+ number 1 dn 106
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1607 password 1607
+ description 1607
+!
+voice register pool  107
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8C17
+ type 7821
+ number 1 dn 107
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1608 password 1608
+ description 1608
+!
+voice register pool  108
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BEAD
+ type 7821
+ number 1 dn 108
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1609 password 1609
+ description 1609
+!
+voice register pool  109
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BD72
+ type 7821
+ number 1 dn 109
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1610 password 1610
+ dnd
+ description 1610
+!
+voice register pool  110
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BDAF
+ type 7821
+ number 1 dn 110
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1611 password 1611
+ description 1611
+!
+voice register pool  111
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BD7B
+ type 7821
+ number 1 dn 111
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1612 password 1612
+ description 1612
+!
+voice register pool  112
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BDFB
+ type 7821
+ number 1 dn 112
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1613 password 1613
+ description 1613
+!
+voice register pool  113
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BEDB
+ type 7821
+ number 1 dn 113
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1614 password 1614
+ description 1614
+!
+voice register pool  114
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8D61
+ type 7821
+ number 1 dn 114
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1615 password 1615
+ description 1615
+!
+voice register pool  115
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BDB3
+ type 7821
+ number 1 dn 115
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1616 password 1616
+ description 1616
+!
+voice register pool  116
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8C08
+ type 7821
+ number 1 dn 116
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1617 password 1617
+ description 1617
+!
+voice register pool  117
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE62
+ type 7821
+ number 1 dn 117
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1618 password 1618
+ description 1618
+!
+voice register pool  118
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BEE4
+ type 7821
+ number 1 dn 118
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1619 password 1619
+ description 1619
+!
+voice register pool  119
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8C59
+ type 7821
+ number 1 dn 119
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1620 password 1620
+ description 1620
+!
+voice register pool  120
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BD6A
+ type 7821
+ number 1 dn 120
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1621 password 1621
+ description 1621
+!
+voice register pool  121
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE93
+ type 7821
+ number 1 dn 121
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1622 password 1622
+ description 1622
+!
+voice register pool  122
+ busy-trigger-per-button 1
+ id mac 204C.9EB3.BDCE
+ type 7821
+ number 1 dn 122
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1623 password 1623
+ description 1623
+!
+voice register pool  123
+ busy-trigger-per-button 1
+ id mac 204C.9EB3.BEA9
+ type 7821
+ number 1 dn 123
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1624 password 1624
+ description 1624
+!
+voice register pool  124
+ busy-trigger-per-button 1
+ id mac 204C.9EB3.BD90
+ type 7821
+ number 1 dn 124
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1625 password 1625
+ description 1625
+!
+voice register pool  125
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8C01
+ type 7821
+ number 1 dn 125
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1626 password 1626
+ description 1626
+!
+voice register pool  126
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.C026
+ type 22
+ number 1 dn 126
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1627 password 1627
+ description 1627
+!
+voice register pool  127
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BEA3
+ type 7821
+ number 1 dn 127
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1628 password 1628
+ description 1628
+!
+voice register pool  128
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.2BA2
+ type 7821
+ number 1 dn 128
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1629 password 169
+ description 1629
+ codec g711ulaw
+!
+voice register pool  129
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE6E
+ type 7821
+ number 1 dn 129
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1630 password 1630
+ description 1630
+!
+voice register pool  130
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8CE6
+ type 7821
+ number 1 dn 130
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1631 password 1631
+ dnd
+ description 1631
+!
+voice register pool  131
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BD9A
+ type 7821
+ number 1 dn 131
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1632 password 1632
+ description 1632
+!
+voice register pool  132
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8C15
+ type 7821
+ number 1 dn 132
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1633 password 1633
+ description 1633
+!
+voice register pool  133
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BEE8
+ type 7821
+ number 1 dn 133
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1634 password 1634
+ description 1634
+!
+voice register pool  134
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BBCB
+ type 7821
+ number 1 dn 134
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1635 password 1635
+ description 1635
+!
+voice register pool  135
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8EAC
+ type 7821
+ number 1 dn 135
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1636 password 1636
+ description 1636
+!
+voice register pool  136
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BD98
+ type 7821
+ number 1 dn 136
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1637 password 1637
+ description 1637
+!
+voice register pool  137
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BDF7
+ type 7821
+ number 1 dn 137
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1638 password 1638
+ description 1638
+!
+voice register pool  138
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8C36
+ type 7821
+ number 1 dn 138
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1639 password 1639
+ description 1639
+!
+voice register pool  139
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BEA6
+ type 7821
+ number 1 dn 139
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1640 password 1640
+ description 1640
+!
+voice register pool  140
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BC24
+ type 7821
+ number 1 dn 140
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1641 password 1641
+ description 1641
+!
+voice register pool  141
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8D11
+ type 7821
+ number 1 dn 141
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1642 password 1642
+ description 1642
+!
+voice register pool  142
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BDB1
+ type 7821
+ number 1 dn 142
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1643 password 1643
+ description 1643
+!
+voice register pool  143
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE81
+ type 7821
+ number 1 dn 143
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1644 password 1644
+ description 1644
+!
+voice register pool  144
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8DEF
+ type 7821
+ number 1 dn 144
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1645 password 1645
+ description 1645
+!
+voice register pool  145
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE9A
+ type 7821
+ number 1 dn 145
+ cor incoming CSS4 default
+ cor outgoing CSS4 default
+ dtmf-relay rtp-nte sip-notify
+ username 1646 password 1646
+ description 1646
+!
+voice register pool  146
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE96
+ type 7821
+ number 1 dn 146
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1647 password 1647
+ description 1647
+!
+voice register pool  147
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8D6B
+ type 7821
+ number 1 dn 147
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1648 password 1648
+ description 1648
+!
+voice register pool  148
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8C80
+ type 7821
+ number 1 dn 148
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1649 password 1649
+ description 1649
+!
+voice register pool  149
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE5F
+ type 7821
+ number 1 dn 149
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1650 password 1650
+ description 1650
+!
+voice register pool  150
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BFA1
+ type 7821
+ number 1 dn 150
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1651 password 1651
+ dnd
+ description 1651
+!
+voice register pool  151
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BEEF
+ type 7821
+ number 1 dn 151
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1652 password 1652
+ description 1652
+!
+voice register pool  152
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BBBB
+ type 7821
+ number 1 dn 152
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1653 password 1653
+ description 1653
+!
+voice register pool  153
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE24
+ type 7821
+ number 1 dn 153
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1654 password 1654
+ description 1654
+!
+voice register pool  154
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.BE8D
+ type 7821
+ number 1 dn 154
+ cor incoming CSS2 default
+ cor outgoing CSS2 default
+ dtmf-relay rtp-nte sip-notify
+ username 1655 password 1655
+ description 1655
+!
+voice register pool  155
+ busy-trigger-per-button 2
+ id mac 204C.9EB3.8C3A
+ type 7821
+ number 1 dn 155
+ dtmf-relay rtp-nte sip-notify
+ username 1656 password 1656
+ description 1656
+!
+!
+!
+voice translation-rule 5
+ rule 1 /^05\(....$\)/ /\1/
+!
+voice translation-rule 6
+ rule 1 /1500/ /8017/
+!
+voice translation-rule 8
+ rule 1 /8017/ /1500/
+ rule 2 /8018/ /1700/
+ rule 3 /3763/ /1502/
+ rule 4 /8019/ /1525/
+ rule 5 /3416/ /1598/
+!
+!
+voice translation-profile INRTM
+ translate called 8
+!
+voice translation-profile VOIP
+ translate calling 6
+ translate called 5
+!
+!
+!
+license udi pid C3900-SPE100/K9 sn FOC19196RTK
+license accept end user agreement
+license boot module c3900 technology-package uck9
+license boot module c3900 technology-package CollabProSuitek9
+hw-module pvdm 0/0
+!
+hw-module sm 2
+!
+!
+!
+username cemicsa privilege 15 password 0 cemicsa
+username ctemdntlm privilege 15 secret 5 $1$1eX5$6ZDwE0kx/VyhlW0zechfP1
+username cisco privilege 15 secret 5 $1$Zn2v$fFJdjRyzJBJiI6ZZRfVEV1
+!
+redundancy
+ notification-timer 120000
+!
+!
+!
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 10.0.0.1 255.255.255.255
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ ip address 10.10.10.10 255.255.255.0
+ shutdown
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 192.168.20.254 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ ip address 10.200.60.132 255.255.255.128
+ duplex auto
+ speed auto
+ h323-gateway voip interface
+ h323-gateway voip bind srcaddr 10.200.60.132
+!
+interface SM2/0
+ ip unnumbered GigabitEthernet0/2
+ service-module ip address 10.200.60.133 255.255.255.128
+ !Application: CUE Running on SM
+ service-module ip default-gateway 10.200.60.132
+!
+interface SM2/1
+ no ip address
+!
+interface Vlan1
+ no ip address
+!
+!
+ip forward-protocol nd
+!
+ip http server
+ip http authentication local
+ip http secure-server
+ip http path flash:/GUI/GUI
+!
+ip route 0.0.0.0 0.0.0.0 10.200.60.129
+ip route 10.200.60.133 255.255.255.255 SM2/0
+!
+logging trap debugging
+!
+nls resp-timeout 1
+cpd cr-id 1
+!
+tftp-server flash:sip78xx.10-1-1SR1-4.loads
+!
+control-plane
+!
+!
+voice-port 0/1/0
+ trunk-group 1
+ supervisory disconnect dualtone mid-call
+ cptone MX
+ timeouts call-disconnect 5
+ timeouts wait-release 5
+ connection plar 1700
+ description linea 55407727
+ caller-id enable
+!
+voice-port 0/1/1
+ trunk-group 1
+ supervisory disconnect dualtone mid-call
+ cptone MX
+ timeouts call-disconnect 5
+ timeouts wait-release 5
+ connection plar opx 1700
+ description linea 55407728
+ caller-id enable
+!
+voice-port 0/1/2
+ trunk-group 1
+ supervisory disconnect dualtone mid-call
+ cptone MX
+ timeouts call-disconnect 5
+ timeouts wait-release 5
+ connection plar 1700
+ description linea 55407729
+ caller-id enable
+!
+voice-port 0/1/3
+ trunk-group 1
+ supervisory disconnect dualtone mid-call
+ cptone MX
+ timeouts call-disconnect 5
+ timeouts wait-release 5
+ connection plar 1700
+ description linea 55407730
+ caller-id enable
+!
+voice-port 0/2/0
+ trunk-group 1
+ supervisory disconnect dualtone mid-call
+ cptone MX
+ timeouts call-disconnect 5
+ timeouts wait-release 5
+ connection plar 1700
+ description linea 55407731
+ caller-id enable
+!
+voice-port 0/2/1
+ trunk-group 1
+ supervisory disconnect dualtone mid-call
+ cptone MX
+ timeouts call-disconnect 5
+ timeouts wait-release 5
+ connection plar 1700
+ description linea 55407732
+ caller-id enable
+!
+voice-port 0/2/2
+ trunk-group 1
+ supervisory disconnect dualtone mid-call
+ cptone MX
+ timeouts call-disconnect 5
+ timeouts wait-release 5
+ connection plar 1700
+ description linea 55407733
+ caller-id enable
+!
+voice-port 0/2/3
+ trunk-group 1
+ supervisory disconnect dualtone mid-call
+ cptone MX
+ timeouts call-disconnect 5
+ timeouts wait-release 5
+ connection plar 1700
+ description linea 55407734
+ caller-id enable
+!
+voice-port 0/3/0
+ trunk-group 1
+ supervisory disconnect dualtone mid-call
+ cptone MX
+ timeouts call-disconnect 5
+ timeouts wait-release 5
+ connection plar 1700
+ description linea 55407735
+ caller-id enable
+!
+voice-port 0/3/1
+ trunk-group 1
+ supervisory disconnect dualtone mid-call
+ cptone MX
+ timeouts call-disconnect 5
+ timeouts wait-release 5
+ connection plar opx 1500
+ description linea 55407736
+ caller-id enable
+!
+voice-port 0/3/2
+!
+voice-port 0/3/3
+ !
+ !
+ !
+ !
+!
+mgcp behavior rsip-range tgcp-only
+mgcp behavior comedia-role none
+mgcp behavior comedia-check-media-src disable
+mgcp behavior comedia-sdp-force disable
+!
+mgcp profile default
+!
+sccp local GigabitEthernet0/1
+sccp ccm 10.200.60.132 identifier 10 version 6.0 
+sccp
+!
+sccp ccm group 1
+ bind interface GigabitEthernet0/1
+ associate ccm 10 priority 1
+ associate profile 1 register CEMICSAIICFB
+ associate profile 2 register CEMICSAIIXCODE
+ switchback method graceful
+!
+!
+!
+dspfarm profile 2 transcode  
+ codec g729abr8
+ codec g729ar8
+ codec g711alaw
+ codec g711ulaw
+ codec g729r8
+ codec g729br8
+ codec ilbc
+ codec gsmamr-nb
+ codec pass-through
+ maximum sessions 20
+ associate application SCCP
+!
+dspfarm profile 1 conference  
+ codec g729br8
+ codec g729r8
+ codec g729abr8
+ codec g729ar8
+ codec g711alaw
+ codec g711ulaw
+ associate application SCCP
+ shutdown
+!
+dial-peer cor custom
+ name INTNA
+ name RTM
+ name LOC
+ name LDN
+ name 044
+ name 045
+ name LDI
+ name LDM
+!
+!
+dial-peer cor list INTNA
+ member INTNA
+!
+dial-peer cor list RTM
+ member RTM
+!
+dial-peer cor list LOC
+ member LOC
+!
+dial-peer cor list LDN
+ member LDN
+!
+dial-peer cor list 044
+ member 044
+!
+dial-peer cor list 045
+ member 045
+!
+dial-peer cor list LDI
+ member LDI
+!
+dial-peer cor list LDM
+ member LDM
+!
+dial-peer cor list CSS0
+ member INTNA
+!
+dial-peer cor list CSS1
+ member INTNA
+ member RTM
+!
+dial-peer cor list CSS2
+ member INTNA
+ member RTM
+ member LOC
+!
+dial-peer cor list CSS3
+ member INTNA
+ member RTM
+ member LOC
+ member LDN
+!
+dial-peer cor list CSS4
+ member INTNA
+ member RTM
+ member LOC
+ member LDN
+ member 044
+!
+dial-peer cor list CSS5
+ member INTNA
+ member RTM
+ member LOC
+ member LDN
+ member 045
+!
+dial-peer cor list CSS6
+ member INTNA
+ member RTM
+ member LOC
+ member LDN
+ member 044
+ member 045
+!
+dial-peer cor list CSS7
+ member INTNA
+ member RTM
+ member LOC
+ member LDN
+ member 044
+ member 045
+ member LDI
+!
+dial-peer cor list CSS8
+ member INTNA
+ member RTM
+ member LOC
+ member LDN
+ member 044
+ member 045
+ member LDI
+ member LDM
+!
+!
+dial-peer voice 1 voip
+ description ............... *** Llamadas entrantes de RTM ***
+ translation-profile incoming INRTM
+ paramspace callsetup after-hours-exempt FALSE
+ session protocol sipv2
+ session target ipv4:10.200.60.79:5060
+ session transport udp
+ incoming called-number 801.
+ voice-class codec 1  
+ no voice-class sip bandwidth video
+ no voice-class sip anat
+ voice-class sip bind control source-interface GigabitEthernet0/2
+ voice-class sip bind media source-interface GigabitEthernet0/2
+ dtmf-relay rtp-nte sip-notify sip-kpml
+ ip qos dscp cs3 signaling
+!
+dial-peer voice 11 voip
+ corlist outgoing RTM
+ description *** Llamadas de Salida RTM SIP ***
+ translation-profile outgoing VOIP
+ preference 1
+ destination-pattern 05[1-8]...
+ session protocol sipv2
+ session target ipv4:10.7.1.6
+ voice-class codec 2  
+ voice-class sip bind control source-interface GigabitEthernet0/2
+ voice-class sip bind media source-interface GigabitEthernet0/2
+ dtmf-relay rtp-nte sip-notify sip-info sip-kpml
+ no vad
+!
+dial-peer voice 12 voip
+ corlist outgoing RTM
+ description *** Llamadas de Salida RTM SIP ***
+ translation-profile outgoing VOIP
+ preference 2
+ destination-pattern 05[1-9]...
+ session protocol sipv2
+ session target ipv4:10.201.70.8
+ voice-class codec 1  
+ voice-class sip bind control source-interface GigabitEthernet0/2
+ voice-class sip bind media source-interface GigabitEthernet0/2
+ dtmf-relay rtp-nte sip-notify sip-info sip-kpml
+ no vad
+!
+dial-peer voice 14 voip
+ corlist outgoing RTM
+ description *** Llamadas de salida RTM ***
+ translation-profile outgoing VOIP
+ preference 1
+ shutdown
+ destination-pattern 059[^12]..
+ session protocol sipv2
+ session target ipv4:10.7.1.6
+ voice-class codec 1  
+ voice-class sip bind control source-interface GigabitEthernet0/2
+ voice-class sip bind media source-interface GigabitEthernet0/2
+ dtmf-relay rtp-nte sip-notify sip-info sip-kpml
+ no vad
+!
+dial-peer voice 15 voip
+ corlist outgoing RTM
+ description *** Llamadas de salida RTM ***
+ translation-profile outgoing VOIP
+ preference 2
+ shutdown
+ destination-pattern 059[^12]..
+ session protocol sipv2
+ session target ipv4:10.7.1.6
+ voice-class codec 1  
+ voice-class sip bind control source-interface GigabitEthernet0/2
+ voice-class sip bind media source-interface GigabitEthernet0/2
+ dtmf-relay rtp-nte sip-notify sip-info sip-kpml
+ no vad
+!
+dial-peer voice 17 voip
+ corlist outgoing LOC
+ description ............... *** Llamadas de salida a PSTN - LOC ***
+ preference 1
+ shutdown
+ destination-pattern 06[1-9].......
+ session protocol sipv2
+ session target ipv4:10.7.1.6
+ voice-class codec 1  
+ voice-class sip bind control source-interface GigabitEthernet0/2
+ voice-class sip bind media source-interface GigabitEthernet0/2
+ dtmf-relay rtp-nte sip-notify sip-info sip-kpml
+ no vad
+!
+dial-peer voice 18 voip
+ corlist outgoing LOC
+ description ............... *** Llamadas de salida a PSTN - LOC ***
+ preference 2
+ shutdown
+ destination-pattern 06[1-9].......
+ session protocol sipv2
+ session target ipv4:10.7.1.6
+ voice-class codec 1  
+ voice-class sip bind control source-interface GigabitEthernet0/2
+ voice-class sip bind media source-interface GigabitEthernet0/2
+ dtmf-relay rtp-nte sip-notify sip-info sip-kpml
+ no vad
+!
+dial-peer voice 20 voip
+ corlist outgoing 044
+ description ............... *** Llamadas de salida a PSTN - 044 ***
+ preference 1
+ shutdown
+ destination-pattern 0604455........
+ session protocol sipv2
+ session target ipv4:10.7.1.6
+ voice-class codec 1  
+ voice-class sip bind control source-interface GigabitEthernet0/2
+ voice-class sip bind media source-interface GigabitEthernet0/2
+ dtmf-relay rtp-nte sip-notify sip-info sip-kpml
+!
+dial-peer voice 21 voip
+ corlist outgoing 044
+ description ............... *** Llamadas de salida a PSTN - 044 ***
+ preference 2
+ shutdown
+ destination-pattern 0604455........
+ session protocol sipv2
+ session target ipv4:10.7.1.6
+ voice-class codec 1  
+ voice-class sip bind control source-interface GigabitEthernet0/2
+ voice-class sip bind media source-interface GigabitEthernet0/2
+ dtmf-relay rtp-nte sip-notify sip-info sip-kpml
+ no vad
+!
+dial-peer voice 23 voip
+ corlist outgoing 045
+ description ............... *** Llamadas de salida a PSTN - LDN ***
+ shutdown
+ destination-pattern 0601..........
+ session protocol sipv2
+ session target ipv4:10.7.1.6
+ voice-class codec 1  
+ voice-class sip bind control source-interface GigabitEthernet0/2
+ voice-class sip bind media source-interface GigabitEthernet0/2
+ dtmf-relay h245-alphanumeric
+ no vad
+!
+dial-peer voice 24 voip
+ corlist outgoing LDN
+ description ............... *** Llaas de salida a PSTN - LDI ***
+ preference 1
+ shutdown
+ destination-pattern 06001T
+ session protocol sipv2
+ session target ipv4:10.7.1.6
+ voice-class codec 1  
+ voice-class sip bind control source-interface GigabitEthernet0/2
+ voice-class sip bind media source-interface GigabitEthernet0/2
+ dtmf-relay rtp-nte sip-notify sip-info sip-kpml
+ no vad
+!
+dial-peer voice 1500 voip
+ destination-pattern 1700
+ session protocol sipv2
+ session target ipv4:10.200.60.133
+ dtmf-relay rtp-nte sip-notify sip-kpml
+ codec g711ulaw
+ no vad
+!
+dial-peer voice 1710 voip
+ description ............... *** Llamadas entrantes de RTM ***
+ translation-profile incoming INRTM
+ paramspace callsetup after-hours-exempt FALSE
+ session protocol sipv2
+ session transport udp
+ incoming called-number 8018
+ no voice-class sip bandwidth video
+ no voice-class sip anat
+ voice-class sip bind control source-interface GigabitEthernet0/2
+ voice-class sip bind media source-interface GigabitEthernet0/2
+ dtmf-relay rtp-nte sip-notify h245-alphanumeric h245-signal
+ ip qos dscp cs3 signaling
+ no vad
+!
+dial-peer voice 11400 voip
+ description *** Enlace CEMICSAI ***
+ preference 1
+ destination-pattern 1[1-4]..$
+ session protocol sipv2
+ session target ipv4:10.200.60.2
+ voice-class sip bind control source-interface GigabitEthernet0/1
+ voice-class sip bind media source-interface GigabitEthernet0/1
+ dtmf-relay rtp-nte sip-notify sip-info sip-kpml
+ no vad
+!
+dial-peer voice 8900 voip
+ corlist outgoing RTM
+ description *** Llamadas de Salida RTM SIP ***
+ translation-profile outgoing VOIP
+ preference 1
+ destination-pattern 058900
+ session protocol sipv2
+ session target ipv4:10.7.1.6
+ voice-class sip bind control source-interface GigabitEthernet0/2
+ voice-class sip bind media source-interface GigabitEthernet0/2
+ dtmf-relay rtp-nte sip-notify sip-info sip-kpml
+ codec g711ulaw
+ no vad
+!
+dial-peer voice 1001 pots
+ trunkgroup 1
+ corlist outgoing LOC
+ description MARCACION LLAMADAS LOCALES
+ call-block translation-profile incoming call_block
+ call-block disconnect-cause incoming call-reject
+ preference 1
+ destination-pattern 06[1-9].......
+ incoming called-number .
+ direct-inward-dial
+ forward-digits 8
+!
+dial-peer voice 1002 pots
+ trunkgroup 1
+ corlist outgoing LDN
+ description MARCACION LLAMADAS LD-NACIONAL
+ preference 1
+ destination-pattern 0601..........
+ forward-digits 12
+!
+dial-peer voice 1003 pots
+ trunkgroup 1
+ corlist outgoing 044
+ description MARCACION LLAMADAS CELULAR 044 y 045
+ preference 1
+ destination-pattern 0604[4-5]..........
+ forward-digits 13
+!
+dial-peer voice 1004 pots
+ trunkgroup 1
+ description MARCACION LLAMADAS 01800 y 01900
+ preference 1
+ destination-pattern 0601[8-9]00.......
+ forward-digits 12
+!
+dial-peer voice 1005 pots
+ trunkgroup 1
+ description MARCACION LLAMADAS USA-CAN
+ preference 1
+ destination-pattern 069001..........
+ forward-digits 13
+!
+dial-peer voice 1006 pots
+ trunkgroup 1
+ description MARCACION LLAMADAS LD-INTERNACIONAL
+ preference 1
+ destination-pattern 00T
+ forward-digits all
+!
+dial-peer voice 11410 voip
+ description *** Enlace CEMICSAI Entrada ***
+ preference 1
+ session protocol sipv2
+ incoming called-number 15..$
+ voice-class sip bind control source-interface GigabitEthernet0/2
+ voice-class sip bind media source-interface GigabitEthernet0/2
+ dtmf-relay rtp-nte sip-notify sip-info sip-kpml
+ no vad
+!
+dial-peer voice 120 voip
+ corlist outgoing RTM
+ description *** Llamadas de Salida RTM SIP Predio Reforma ***
+ translation-profile outgoing VOIP
+ preference 2
+ destination-pattern 055969
+ session protocol sipv2
+ session target ipv4:10.201.90.8
+ voice-class codec 1  
+ voice-class sip bind control source-interface GigabitEthernet0/2
+ voice-class sip bind media source-interface GigabitEthernet0/2
+ dtmf-relay rtp-nte sip-notify sip-info sip-kpml
+ no vad
+!
+!
+num-exp 8019 1523
+num-exp 8020 1545
+num-exp 3416 1598
+num-exp 3763 1502
+gateway 
+ timer receive-rtp 1200
+!
+sip-ua 
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+credentials
+!
+!
+telephony-service
+ sdspfarm units 2
+ sdspfarm transcode sessions 2
+ sdspfarm tag 1 CEMICSAIICFB
+ sdspfarm tag 2 CEMICSAIIXCODE
+ conference hardware
+ max-ephones 200
+ max-dn 200
+ ip source-address 192.168.20.254 port 2000
+ auto assign 1 to 5
+ time-zone 9
+ max-conferences 8 gain -6
+ call-park system application
+ call-forward pattern .
+ call-forward pattern .T
+ web admin system name cisco password cisco
+ dn-webedit 
+ time-webedit 
+ transfer-system full-consult
+ transfer-pattern 9.T
+ transfer-pattern 15..
+ directory last-name-first
+ create cnf-files version-stamp 7960 Feb 17 2021 09:34:54
+!
+!
+ephone-dn  1  dual-line
+ number 1500
+ label CONMUTADOR
+ name Conmutador
+!
+!
+ephone-dn  2
+ number 1501
+ label DIRECCION
+ name Director
+!
+!
+ephone  1
+ device-security-mode none
+ mac-address F0B2.E58F.1662
+ type 7942
+ button  1:1
+!
+!
+!
+ephone  2
+ device-security-mode none
+ mac-address F0B2.E58F.150C
+ type 7942
+ button  1:2
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line 131
+ no activation-character
+ no exec
+ transport preferred none
+ transport input all
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ exec-timeout 10000 0
+ privilege level 15
+ login local
+ length 0
+ transport input telnet
+line vty 5 15
+ exec-timeout 3 0
+ privilege level 15
+ login local
+ transport input telnet
+!
+scheduler allocate 20000 1000
+ntp master
+!
+end

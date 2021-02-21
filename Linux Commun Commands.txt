@@ -3,6 +3,10 @@ free -h  .- RAM y Swap
 df -h .- Filesystem size
 fdisk -l .- dice cuantos discos fisicos tiene
 fdisk -l /dev/sda
+cat /proc/cpuinfo.- CPUs used
+htop/top
+
+---------------CRON-------------------
 passwd .- Reset your password ("passwd vivek" resets vivek's password)
 0 0 * * 0  find /var/www/backup/issabelbackup*  -mtime +10 -delete .- Deletes BKUP files older than 10 days (+10) Ejecutado en el Punto3
 find /var/www/backup/*  -amin -10 -deletes files that are more than 10 minutes recent
@@ -11,9 +15,10 @@ find /var/www/backup/*  -amin -10 -deletes files that are more than 10 minutes r
 
 -------------COMMUN-------------------
 column -s, -t < data.csv   .-Visualizar CSV
-
 egrep "filt1|filt2" .-   filt 1 o 2
 grep -E "filt1|filt2".-  filt 1 o 2
+
+passwd .- Reset your password ("passwd vivek" resets vivek's password)
 curl cheat.sh/wc .- Spreadsheat, gives online info of diferent commands
 wc .- word wount (-l) line count, (-w) word count, (-m) byte/char count
 less example.txt .- reads the file
