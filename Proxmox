@@ -5,7 +5,8 @@ root@Burro1:/var/lib/vz/dump/vzdump-lxc-1001-2021_01_02-00_06_11.tar.zst #
 
 ******************** Proxmox CRON *******************	
 nano /etc/crontab .- CRON para SNAPSHOT DIARIO
-     0 0 * * * root  pct snapshot 1002 SNAPSHOT_$(date +\%a-\%F)
+     0 0  * * *    root  pct snapshot 1002 SNAPSHOT_$(date +\%a-\%F)
+     0 1 30 * *    root  /bin/bash /home/Linux-Scripts/BackupPBX_Burro1.sh
 
 nano /etc/pve/vzdump.cron .- CRON para VZDUMP cada 3 dias (SNAP, local) o mensual (STOP, NFS)  
      0 0 1 * *    root vzdump 1001 1002 1003 1005 --quiet 1 --compress zstd --storage NFS_MEDIA_VAULT --mode stop --mailnotification failure
