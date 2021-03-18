@@ -16,6 +16,9 @@ pct snapshot 1003 "SNAPSHOT_$(date +%a-%F)" .- Makes a SNAPSHOT with a time stam
 ###TSHOOT CRON:
 journalctl _COMM=cron --since="1 minute ago" --until="date"  .- Checks LOGS of CRON
   
+******************** DISK Space *******************	
+pct resize {CTID} rootfs 48G  .- #Cambia el espacio en disco asignado al contenedor LXC
+
 ******************** ISSABEL - CENTOS PERSITENT ROUTE *******************	
 [root@SIP5 ~]# nano  /etc/sysconfig/network-scripts/route-eth1
                ADDRESS0=10.0.0.0
