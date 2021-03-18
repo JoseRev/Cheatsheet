@@ -1,7 +1,8 @@
 -------------ADMIN SERVER-------------
-free -h  .- RAM y Swap
-df -h .- Filesystem size
-fdisk -l .- dice cuantos discos fisicos tiene
+lsbult    .- In Promox, shows file system
+free -h   .- RAM y Swap
+df -h     .- Filesystem size
+fdisk -l  .- dice cuantos discos fisicos tiene
 fdisk -l /dev/sda
 cat /proc/cpuinfo.- CPUs used
 htop/top
