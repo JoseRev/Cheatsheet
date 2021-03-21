@@ -20,7 +20,7 @@ journalctl _COMM=cron --since="1 minute ago" --until="date"  .- Checks LOGS of C
 ******************** DISK Space *******************	
 pct resize {CTID} rootfs 48G  .- #Cambia el espacio en disco asignado al contenedor LXC
 
-******************** ISSABEL - CENTOS PERSITENT ROUTE *******************	
+******************** ISSABEL - CENTOS PERSISTENT ROUTE *******************	
 [root@SIP5 ~]# nano  /etc/sysconfig/network-scripts/route-eth1
                ADDRESS0=10.0.0.0
                NETMASK0=255.0.0.0
