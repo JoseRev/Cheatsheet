@@ -1,10 +1,11 @@
 -------------ADMIN SERVER-------------
-lsbult    .- In Promox, shows file system
-free -h   .- RAM y Swap
-df -h     .- Filesystem size
-fdisk -l  .- dice cuantos discos fisicos tiene
+lsblk [-S]          .- In Promox, shows file system
+free -h             .- RAM y Swap
+df -h               .- Filesystem size
+du -h / --summarize .- Resumen/Total del espacio en disco utilizado 
+fdisk -l            .- dice cuantos discos fisicos tiene
 fdisk -l /dev/sda
-cat /proc/cpuinfo.- CPUs used
+cat /proc/cpuinfo   .- CPUs used
 htop/top
 
 ---------------CRON-------------------
