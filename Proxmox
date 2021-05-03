@@ -38,6 +38,9 @@ journalctl _COMM=cron --since="1 minute ago" --until="date"  .- Checks LOGS of C
 ******************** DISK Space *******************	
 pct resize {CTID} rootfs 48G  .- #Cambia el espacio en disco asignado al contenedor LXC
 
+******************** LLDP ********************
+lldpd show neighbors 
+
 ******************** LACP ********************
 CISCO:
 	show etherchannel summary
