@@ -1,3 +1,19 @@
+******************** QM Admin ********************
+#Clone VM (PROXMOX)
+	udevadm trigger
+	qm clone 500 501 -full 1 -name "Montse-Desktop" -storage "local-lvm"
+#Destroy VM (PROXMOX)
+	qm destroy 500 --purge 1
+#Add User (UBUNTU)
+	adduser montse
+	visudo
+		tom ALL=(ALL:ALL)ALL
+#Change username 
+	usermod -l newUsername oldUsername
+	usermod -d /home/newHomeDir -m newUsername
+#Delete user
+	deluser --remove-home ubuntu
+	
 ******************** Proxmox VZdump *******************	
 https://pve.proxmox.com/wiki/Storage .- Storage types
 root@Burro1:/var/lib/vz/dump/vzdump-lxc-1001-2021_01_02-00_06_11.tar.zst #
@@ -20,7 +36,42 @@ journalctl _COMM=cron --since="1 minute ago" --until="date"  .- Checks LOGS of C
 ******************** DISK Space *******************	
 pct resize {CTID} rootfs 48G  .- #Cambia el espacio en disco asignado al contenedor LXC
 
-******************** ISSABEL - CENTOS PERSISTENT ROUTE *******************	
+******************** LACP ********************
+CISCO:
+	show etherchannel summary
+	show lacp  neighbor
+PROXMOX:
+	brctl show
+	cat /proc/net/bonding/bond0 
+PROXMOX LACP:
+	auto bond0
+	iface bond0 inet static
+		bond-slaves eno1 eno2
+		address  192.168.1.2
+		netmask  255.255.255.0
+		bond-miimon 100
+		bond-mode 802.3ad
+		bond-xmit-hash-policy layer2+3
+
+-https://pve.proxmox.com/wiki/Network_Configuration
+-https://www.youtube.com/watch?v=GoZaMgEgrHw&t=141s (MIN 16:27)
+******************** COROSYNC ********************
+cat /proc/partitions
+pveperf
+pvesm status
+/etc/init.d/pve-cluster stop
+du -xhs /var/*
+du -hs /usr
+`journalctl -r`, `dmesg` 
+pvs
+vgs
+lvs
+qm showcmd <vmid> [OPTIONS]
+	Show command line which is used to start the VM (debug info).
+corosync-quorumtool
+pveperf
+
+******************** CENTOS PERSISTENT ROUTE *******************	
 [root@SIP5 ~]# nano  /etc/sysconfig/network-scripts/route-eth1
                ADDRESS0=10.0.0.0
                NETMASK0=255.0.0.0
