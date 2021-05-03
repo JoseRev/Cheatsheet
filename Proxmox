@@ -5,9 +5,9 @@
 #Destroy VM (PROXMOX)
 	qm destroy 500 --purge 1
 #Add User (UBUNTU)
-	adduser montse
+	adduser cecom
 	visudo
-		tom ALL=(ALL:ALL)ALL
+		cecom ALL=(ALL:ALL)ALL
 #Change username 
 	usermod -l newUsername oldUsername
 	usermod -d /home/newHomeDir -m newUsername
