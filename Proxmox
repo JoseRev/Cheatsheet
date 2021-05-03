@@ -2,15 +2,19 @@
 #Clone VM (PROXMOX)
 	udevadm trigger
 	qm clone 500 501 -full 1 -name "Montse-Desktop" -storage "local-lvm"
+	
 #Destroy VM (PROXMOX)
 	qm destroy 500 --purge 1
+	
 #Add User (UBUNTU)
 	adduser cecom
 	visudo
 		cecom ALL=(ALL:ALL)ALL
+		
 #Change username 
 	usermod -l newUsername oldUsername
 	usermod -d /home/newHomeDir -m newUsername
+	
 #Delete user
 	deluser --remove-home ubuntu
 	
